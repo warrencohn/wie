@@ -8,7 +8,7 @@ import os
 import re
 
 class YellowPageSpider(CrawlSpider):
-    name = 'dmoz'
+    name = 'yp'
     allowed_domains = ['yellowpages.vnn.vn']
     start_urls = ['http://yellowpages.vnn.vn/business/Category_listings.asp?classcode=89400&town_id=54&keyword=&keywordunsign=&nganhnghe=&searchfor=&loc=D']
 
@@ -23,8 +23,12 @@ class YellowPageSpider(CrawlSpider):
     )
 
     def parse_item(self, response):
-		if re.search(u"H&#7891; Chí Minh", response.body, re.IGNORECASE) is not None:
+		if re.search("H&#7891; ChÃ­ Minh", response.body, re.IGNORECASE) is not None:
 			url = urlparse(response.url)
 			params = dict([part.split('=') for part in url[4].split('&')])
 			filename = os.path.join('data', params['sql_code'])
 			open(filename, 'wb').write(response.body)
+    
+    
+    
+    

@@ -13,3 +13,6 @@ SPIDER_MODULES = ['ypcrawler.spiders']
 NEWSPIDER_MODULE = 'ypcrawler.spiders'
 USER_AGENT = '%s/%s' % (BOT_NAME, BOT_VERSION)
 
+DOWNLOADER_MIDDLEWARES = { 
+'ypcrawler.spiders.TorMiddleware.TorMiddleware': 740, 
+} 
