@@ -62,17 +62,17 @@ def Match(Node, t):
 # generate a hash key table, and matching matrix
 def initDict(root, tree):
     global mtcMatrix
-    echo('@Indexing..\n')
+    #echo('@Indexing..\n')
     i = 0
     for node in root.iter():
         mtcKey[tree.getpath(node)] = i
-        echo(tree.getpath(node) + ' > %d\n' % i)
+        #echo(tree.getpath(node) + ' > %d\n' % i)
         i = i + 1
-    echo('Total indexed elements: %d\n' % len(mtcKey))
+    #echo('Total indexed elements: %d\n' % len(mtcKey))
     mtcMatrix = [[''] * len(mtcKey)] * (len (tree.getroot()) - 1)
-    echo('init mtcMatrix: ')
-    echo(mtcMatrix)
-    echo('\n')
+    #echo('init mtcMatrix: ')
+    #echo(mtcMatrix)
+    #echo('\n')
     #return mtcMatrix
 
 def TreeMatch(tree, node1, node2):
@@ -116,12 +116,12 @@ tree = etree.ElementTree(root)
 initDict(root1, tree)
 
 
-print TreeMatch(tree, root1, root2)
+TreeMatch(tree, root1, root2)
 
-AlignAndLink()
+#AlignAndLink()
 
-
-for node in root.iter():
-    if node.attrib.has_key('link'):
-        print tree.getpath(node) + ' link to ' + node.attrib['link']
+print mtcMatrix
+#for node in root.iter():
+ #   if node.attrib.has_key('link'):
+  #      print tree.getpath(node) + ' link to ' + node.attrib['link']
                 
