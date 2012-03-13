@@ -36,9 +36,6 @@ def AlignAndLink():
         echo('\n')
     echo('--\n')
 
-
-
-
 def GenNodePattern(child):
     pass
 
@@ -66,15 +63,38 @@ def initDict(root, tree):
     i = 0
     for node in root.iter():
         mtcKey[tree.getpath(node)] = i
-        #echo(tree.getpath(node) + ' > %d\n' % i)
+        echo(tree.getpath(node) + ' > %d\n' % i)
         i = i + 1
     #echo('Total indexed elements: %d\n' % len(mtcKey))
+	#print tree.getroot()
     mtcMatrix = [[''] * len(mtcKey)] * (len (tree.getroot()) - 1)
     #echo('init mtcMatrix: ')
     #echo(mtcMatrix)
     #echo('\n')
     #return mtcMatrix
 
+# S is a set of descending length of children
+def partialTreeAlignment(S, mtcMatrix):
+	pass
+	Ts = S[0]
+	S.remove(Ts)
+	R = [[]]
+	#all(x is None for x in l)
+	while (S == None):
+		Ti = S[0]
+		S.remove(Ti)
+		if (len(Ti) != len(mtcMatrix[i])):
+			if (insetIntoSeed(Ts,Ti)):
+				S = S + R
+				R = [[]]
+			else:
+				R.insert(len(R),Ti)
+	return tree
+
+# true -> insert -> return True; false -> do nothing
+def insertIntoSeed():
+	pass
+	
 def TreeMatch(tree, node1, node2):
     #print node1.tag + ' vs ' + node2.tag
     if node1.tag != node2.tag:
@@ -90,11 +110,10 @@ def TreeMatch(tree, node1, node2):
             for j in range (1, n+1):
                 #print '\t j = %d'%j
                 w = TreeMatch(tree, node1[i-1], node2[j-1])
-                if w == 1 and node1[i-1].text is not None and node2[j-1].text is not None:
+                if (w == 1) and (node1[i-1].text is not None) and (node2[j-1].text is not None):
                     node1[i-1].attrib['link'] = tree.getpath(node2[j-1])
                     
                     index = mtcKey[tree.getpath(node1[i-1])]
-
                     mtcMatrix[nRow][index] = tree.getpath(node2[j-1])
                     
                 m[i][j] = max( m[i][j-1], m[i-1][j], m[i-1][j-1]+w )
