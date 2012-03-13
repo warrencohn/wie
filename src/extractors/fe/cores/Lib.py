@@ -84,7 +84,7 @@ def partialTreeAlignment(S, mtcMatrix):
 		Ti = S[0]
 		S.remove(Ti)
 		if (len(Ti) != len(mtcMatrix[i])):
-			if (insetIntoSeed(Ts,Ti)):
+			if (insertIntoSeed(Ts,Ti)):
 				S = S + R
 				R = [[]]
 			else:
