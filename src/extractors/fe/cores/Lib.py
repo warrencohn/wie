@@ -90,7 +90,8 @@ def partialTreeAlignment(S, mtcMatrix):
 			else:
 				R.insert(len(R),Ti)
 	return tree
-
+	
+#print(etree.tostring(root, pretty_print=True))
 # true -> insert -> return True; false -> do nothing
 def insertIntoSeed():
 	pass
