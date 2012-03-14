@@ -2,6 +2,8 @@ from xml.dom.minidom import parse, parseString
 import lxml.html
 from lxml.html.clean import Cleaner
 import tidy
+from lxml import etree
+from StringIO import StringIO
 
 def SimpleTreeMatching(node1, node2):    
     if node1.nodeType != node2.nodeType:
@@ -25,51 +27,75 @@ def SimpleTreeMatching(node1, node2):
             
 def AlignAndLink(w, node1, node2):
     m = [[x for x, y in row] for row in w]
-    
-    table = []
-    numRow = len(m)
-    numCol = len(m[0])
-    if numCol < numRow:
-        for i in range(0, numCol):
-            m_max = max([m[j][i] for j in range(numRow)])
-            if m_max == 0:
-                break
-            for j in range(0, numRow):
-                if m[j][i] == m_max:
-                    if m[j][i] == 1:
-                        table.append([node1.childNodes[j], node2.childNodes[i]])
-                    else:
-                        table += AlignAndLink(w[j][i][1], node1.childNodes[j], node2.childNodes[i])
-                    break
-    else:
-        for i in range(0, numRow):
-            m_max = max(m[i])
-            if m_max == 0:
-                break
-            for j in range(0, numCol):
-                if m[i][j] == m_max:
-                    if m[i][j] == 1:
-                        table.append([node1.childNodes[i], node2.childNodes[j]])
-                    else:
-                        table += AlignAndLink(w[i][j][1], node1.childNodes[i], node2.childNodes[j])
-                    break
-    return table    
+    m_max = max([max(row) for row in m])
+    if m_max == 0:
+        return []
+    else :
+        table = []
+        numRow = len(m)
+        numCol = len(m[0])
+        if numCol < numRow:
+            for i in range(0, numCol):
+                for j in range(0, numRow):
+                    if m[j][i] == m_max:
+                        if m[j][i] == 1:
+                            table.append([node1.childNodes[j], node2.childNodes[i]])
+                        else:
+                            table += AlignAndLink(w[j][i][1], node1.childNodes[j], node2.childNodes[i])
+                        break
+        else:
+            for i in range(0, numRow):
+                for j in range(0, numCol):
+                    if m[i][j] == m_max:
+                        if m[i][j] == 1:
+                            table.append([node1.childNodes[i], node2.childNodes[j]])
+                        else:
+                            table += AlignAndLink(w[i][j][1], node1.childNodes[i], node2.childNodes[j])
+                        break
+        return table    
                          
-#options = dict(output_xhtml=1, 
-#               clean=1, 
-#               drop_proprietary_attributes=1, 
-#               tidy_mark=0)                         
-#file1 = tidy.parse('657534', **options)
-#file2 = tidy.parse('657642', **options)
+options = dict(output_xhtml=1,
+               clean=1, 
+               drop_proprietary_attributes=1, 
+               tidy_mark=0)                         
+#file1 = str(tidy.parse('657534', **options))
+# file2 = tidy.parse('657642', **options)
+
+f = open('657534', 'r')
+parser = etree.HTMLParser(remove_comments=True)
+html = etree.HTML(f.read(), parser)
+result = etree.tostring(html, pretty_print=True, method="xml")
+events = "comment"
+
+	#if action == "comment":
+	#	elem.clear()
+# print result
+
+
+f = open('xxx', 'w')
+f.write(result)
+dom1 = parseString(result)
+
+print dom1
 
 #dom1 = parseString(str(file1))
 #f = open('out.html', 'wb');
 #f.write( cleaner.clean_html(lxml.html.tostring(file1)))
-#f = open('657534', 'r')
-#print tidy.parseString(f.read()).writexml()
-dom = parse('xyz.html')
-root = dom.documentElement
-body = root.childNodes[0]
-t, w = SimpleTreeMatching(body.childNodes[0], body.childNodes[1])
+# f = open('657534', 'r')
+# print tidy.parseString(f.read())
+# a = lxml.html.tostring(lxml.html.parse('657534'))
 
-print AlignAndLink(w, body.childNodes[0], body.childNodes[1])
+# print tidy.parse('xxx')
+
+# dom1 = parseString(a)
+
+# print tidy.parseString(lxml.html.tostring(lxml.html.parse('657534')))
+# print tidy.parseString(f.read())
+# print tidy.parse('a')
+# print tidy.parse('657534')
+
+#root = dom.documentElement
+#body = root.childNodes[0]
+#t, w = SimpleTreeMatching(body.childNodes[0], body.childNodes[1])
+
+#print AlignAndLink(w, body.childNodes[0], body.childNodes[1])
