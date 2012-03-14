@@ -25,47 +25,51 @@ def SimpleTreeMatching(node1, node2):
             
 def AlignAndLink(w, node1, node2):
     m = [[x for x, y in row] for row in w]
-    m_max = max([max(row) for row in m])
-    if m_max == 0:
-        return []
-    else :
-        table = []
-        numRow = len(m)
-        numCol = len(m[0])
-        if numCol < numRow:
-            for i in range(0, numCol):
-                for j in range(0, numRow):
-                    if m[j][i] == m_max:
-                        if m[j][i] == 1:
-                            table.append([node1.childNodes[j], node2.childNodes[i]])
-                        else:
-                            table += AlignAndLink(w[j][i][1], node1.childNodes[j], node2.childNodes[i])
-                        break
-        else:
-            for i in range(0, numRow):
-                for j in range(0, numCol):
-                    if m[i][j] == m_max:
-                        if m[i][j] == 1:
-                            table.append([node1.childNodes[i], node2.childNodes[j]])
-                        else:
-                            table += AlignAndLink(w[i][j][1], node1.childNodes[i], node2.childNodes[j])
-                        break
-        return table    
+    
+    table = []
+    numRow = len(m)
+    numCol = len(m[0])
+    if numCol < numRow:
+        for i in range(0, numCol):
+            m_max = max([m[j][i] for j in range(numRow)])
+            if m_max == 0:
+                break
+            for j in range(0, numRow):
+                if m[j][i] == m_max:
+                    if m[j][i] == 1:
+                        table.append([node1.childNodes[j], node2.childNodes[i]])
+                    else:
+                        table += AlignAndLink(w[j][i][1], node1.childNodes[j], node2.childNodes[i])
+                    break
+    else:
+        for i in range(0, numRow):
+            m_max = max(m[i])
+            if m_max == 0:
+                break
+            for j in range(0, numCol):
+                if m[i][j] == m_max:
+                    if m[i][j] == 1:
+                        table.append([node1.childNodes[i], node2.childNodes[j]])
+                    else:
+                        table += AlignAndLink(w[i][j][1], node1.childNodes[i], node2.childNodes[j])
+                    break
+    return table    
                          
-options = dict(output_xhtml=1, 
-               clean=1, 
-               drop_proprietary_attributes=1, 
-               tidy_mark=0)                         
-file1 = tidy.parse('657534', **options)
-file2 = tidy.parse('657642', **options)
+#options = dict(output_xhtml=1, 
+#               clean=1, 
+#               drop_proprietary_attributes=1, 
+#               tidy_mark=0)                         
+#file1 = tidy.parse('657534', **options)
+#file2 = tidy.parse('657642', **options)
 
 #dom1 = parseString(str(file1))
 #f = open('out.html', 'wb');
 #f.write( cleaner.clean_html(lxml.html.tostring(file1)))
-f = open('657534', 'r')
-print tidy.parseString(f.read()).writexml()
-#root = dom.documentElement
-#body = root.childNodes[0]
-#t, w = SimpleTreeMatching(body.childNodes[0], body.childNodes[1])
+#f = open('657534', 'r')
+#print tidy.parseString(f.read()).writexml()
+dom = parse('xyz.html')
+root = dom.documentElement
+body = root.childNodes[0]
+t, w = SimpleTreeMatching(body.childNodes[0], body.childNodes[1])
 
-#print AlignAndLink(w, body.childNodes[0], body.childNodes[1])
+print AlignAndLink(w, body.childNodes[0], body.childNodes[1])
