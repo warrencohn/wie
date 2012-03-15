@@ -53,7 +53,126 @@ def AlignAndLink(w, node1, node2):
                             table += AlignAndLink(w[i][j][1], node1.childNodes[i], node2.childNodes[j])
                         break
         return table    
-                         
+
+def partialTreeAlignment(S,w):
+	Ts = S.childNodes[0]
+	S.removeChild(Ts)
+	Document.createElement(R)
+	while (S.hasChildNodes()):
+		Ti = S.childNodes[0]
+		S.removeChild(Ti)
+		temp = []
+		if (checkInsert(w)):
+			insertIntoSeed(Ts,Ti)
+			S = S + R
+			R = [[]]
+		else :
+			R.insert(len(R),Ti)
+	return Ts
+	
+def insertIntoSeed(Ts,Ti):
+	
+def checkInsert(w):
+	m = [[x for x, y in row] for row in w]
+    numRow = len(m)
+    numCol = len(m[0])
+    if numCol < numRow:
+		j = 0 
+		#for j in range(0, numCol):
+		while (j < numCol):
+			m_max = max([m[i][j] for i in range(numRow)]):
+			if m_max == 0:
+				if(j == 0):
+					for k in range(j+1,numCol):
+						j = k
+						m_max2 = max([m[i][k] for i in range(numRow)])
+						if m_max2 != 0:
+							break
+						if j == numCol:
+							return False
+					#check First Row
+					if m[0][j] == max([m[i][j] for i in range(numRow)]) :
+						j = j + 1
+						continue
+					else:
+						return False
+				else:
+					flagHead = j-1
+					flagTail = -1
+					for k in range(j+1,numCol):
+						j = k
+						m_max2 = max([m[i][k] for i in range(numRow)])
+						if m_max2 != 0:
+							flagTail = k
+							break
+					if flagTail == -1: #Check Final Row
+						if m[numRow-1][j] == max([m[i][j] for i in range(numRow)]) :
+							#return True
+							break;
+					else: #Check Head and Tail are consecutive siblings
+						m_max3 = max([m[i][flagHead] for i in range(numRow)])
+						m_max4 = max([m[i][flagTail] for i in range(numRow)])
+						for x in range(0,numRow-1):
+							if ((m[x][flagHead] = m_max3) and (m[x+1][flagHead] != m_max4)) or ((m[x][flagHead] != m_max3) and (m[x+1][flagHead] == m_max4)):
+								return False
+					j = j + 1
+					continue
+			for i in range(0,numRow):
+				if m[i][j] = m_max:
+					if m[i][j] == 1:
+						return True
+					else:
+						checkInsert(w[i][j][1])
+					break
+								
+    else:	# numCol > numRow
+		i = 0
+		while(i<numRow)
+			m_max = max(m[i])
+			if m_max == 0:
+				if i==0:
+					for k in range(i+1,numRow):
+						i=k
+						m_max2 = max(m[k])
+						if m_max2 != 0
+							break
+						if i == numRow:
+							return False
+					#check First Column
+					if m[i][0] = max(m[i]):
+						i = i+1
+						continue
+					else:
+						return False
+				else:
+					flagHead = i-1
+					flagTail = -1
+					for k in range (i+1,numRow):
+						i=k
+						m_max2 = max(m[k])
+						if m_max2 != 0:
+							flagTail = k
+							break
+					if flagTail == -1:	#Check Final Column
+						if m[flagHead][numCol-1] == max(m[flagHead]):
+							#return True
+							break
+					else:  #Check Head and Tail are consecutive siblings
+						m_max3 = max(m[flagHead])
+						m_max4 = max(m[flagTail])
+						for x in range(0,numCol-1)
+							if ((m[flagHead][x] = m_max3) and (m[flagHead][x+1] != m_max4)) or ((m[flagHead][x] != m_max3) and (m[flagHead][x+1] == m_max4)):
+								return False
+						i = i + 1
+						continue
+			for j in range(0,numCol):
+				if m[i][j] = m_max:
+					if m[i][j] == 1:
+						return True
+					else:
+						checkInsert(w[i][j][1])
+					break
+	return True
 options = dict(output_xhtml=1,
                clean=1, 
                drop_proprietary_attributes=1, 
