@@ -1,19 +1,23 @@
-from lxml.html.clean import Cleaner
+html = 'vinh\xa0'
+f1 = open('xa0.txt', 'r')
 
-f1 = open('x.html', 'r')
+s1 = f1.read()
 
-html = f1.read()
+print "1."
+ss = s1.decode('windows-1252') # --> unicode
+ss.replace(u"\u00A0", "-")
+print type(ss), ss
 
-html = html.replace('\n', '')
-html = html.replace('\n\r', '')
-html = html.replace('\t', '')
-html = html.replace('  ', '')
+print "2."
+print type(s1), s1
 
-a = '\t adasd \t sdad \n\r asdadas'
+# s2 = s1.replace("\xc2\xa0", " ")
 
-print a.strip(' \t\n\r')
+#print "3."
+#print s2
 
-cleaner = Cleaner(page_structure=False, style=True, javascript=True,scripts=True)
-cleaner.kill_tags = ['p', 'img']
+#uniString = unicode(s1, "UTF-8")
+#uniString = uniString.replace(u"\u00A0", " ")
 
-print cleaner.clean_html(html)
+#print "4."
+#print uniString

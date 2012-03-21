@@ -60,7 +60,7 @@ def AlignAndLink(w, node1, node2):
                          
 def printTable(filename, table):
     file = open(filename, 'w')
-    file.write('<html><head><meta charset="utf-8"></head><body><table style="border: 1px solid;">')
+    file.write('<html><head><meta charset="utf-8"></head><body><table style="border: 1px solid;border-collapse: collapse;">')
     x = [False for i in range(len(table))]
     for i in range(len(table[0])):
         file.write('<tr style="border: 1px solid;">')
@@ -296,20 +296,5 @@ def checkInsert(w):
 			i = i + 1
 	return True		
         
-# @hungvjnh
-def cleanString(html):
-	html = html.replace('\n', '')
-	html = html.replace('\n\r', '')
-	html = html.replace('\t', '')
-	#html = html.replace('  ', '')
-	cleaner = Cleaner(page_structure=False, style=True, javascript=True,scripts=True)
-	#cleaner.kill_tags = ['p', 'img']
-	#cleaner.remove_tags = ['p']
 
-	result = cleaner.clean_html(html)
-
-	test = open('test.html', 'w')
-	test.write(result)
-	
-	return result
 
