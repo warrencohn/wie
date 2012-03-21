@@ -122,7 +122,6 @@ def partialTreeAlignment(S,w):
 			R.insert(len(R),Ti)
 	return Ts
 def insertIntoSeed(Ts,Ti,w):
-	pass
 	m = [[x for x, y in row] for row in w]
 	numRow = len(m)
 	numCol = len(m[0])
@@ -141,7 +140,7 @@ def insertIntoSeed(Ts,Ti,w):
 						if m_max2 != 0:
 							flag2 = k
 							for x in range(flag1,flag2):
-								Ts.insertBefore(Ti.childNode[x],Ts.firstChild)
+								Ts.insertBefore(Ti.childNodes[x],Ts.firstChild)
 							return insertIntoSeed(Ts,Ti,SimpleTreeMatching(Ts, Ti)[1])
 					j = j + 1
 					continue
@@ -154,7 +153,7 @@ def insertIntoSeed(Ts,Ti,w):
 							for i in range(0,numRow):
 								if m[i][j] == m_max2:
 									for x in range(flag1,flag2):
-										Ts.insertBefore(Ti.childNode[x],Ts.childNode[i])
+										Ts.insertBefore(Ti.childNodes[x],Ts.childNodes[i])
 									return insertIntoSeed(Ts,Ti,SimpleTreeMatching(Ts, Ti)[1])
 					j = j + 1
 					continue
@@ -191,7 +190,7 @@ def insertIntoSeed(Ts,Ti,w):
 										if m[i][x] == m_max2:
 											flagTail = x
 											for x in range(flagHead,flagTail):
-												Ts.insertBefore(Ti.childNode[x],Ts.childNode[i])
+												Ts.insertBefore(Ti.childNodes[x],Ts.childNodes[i])
 											return insertIntoSeed(Ts,Ti,SimpleTreeMatching(Ts, Ti)[1])
 						insertIntroSeed(Ts,Ti,w[i][j][1])
 			i = i + 1
@@ -208,7 +207,7 @@ def checkInsert(w):
 		#for j in range(0, numCol):
 		while (j < numCol):
 			m_max1 = max([m[i][j] for i in range(numRow)])
-			print "m_max1 = ",m_max1
+			#print "m_max1 = ",m_max1
 			if m_max1 == 0:
 				if(j == 0):
 					for k in range(j+1,numCol):
@@ -228,7 +227,7 @@ def checkInsert(w):
 						return False
 				else:
 					flagHead = j-1
-					print "flagHead = ",flagHead
+					#print "flagHead = ",flagHead
 					flagTail = -1
 					for k in range(j+1,numCol):
 						j = k
@@ -236,7 +235,7 @@ def checkInsert(w):
 						m_max2 = max([m[i][k] for i in range(numRow)])
 						if m_max2 != 0:
 							flagTail = k
-							print "flagTail = ",flagTail
+							#print "flagTail = ",flagTail
 							break
 					if flagTail == -1: #Check Final Row
 						#print "here"
@@ -246,14 +245,16 @@ def checkInsert(w):
 					else: #Check Head and Tail are consecutive siblings
 						m_max3 = max([m[i][flagHead] for i in range(numRow)])
 						m_max4 = max([m[i][flagTail] for i in range(numRow)])
-						print "m_max3 = ",m_max3
-						print "m_max4 = ",m_max4
+						#print "m_max3 = ",m_max3
+						#print "m_max4 = ",m_max4
 						for x in range(0,numRow):
-							print "m[x][flagHead] =", m[x][flagHead]
-							print "m[x+1][flagTail] =", m[x+1][flagTail]
+							#print "m[%d][flagHead] =%d"%(x,m[x][flagHead])
+							#print "m[%d][flagTail] =%d"%(x+1,m[x+1][flagTail])
 							if ((m[x][flagHead] == m_max3) & (m[x+1][flagTail] != m_max4)) | ((m[x][flagHead] != m_max3) and (m[x+1][flagTail] == m_max4)):
-								print "here"
+								#print "here"
 								return False
+							elif ((m[x][flagHead] == m_max3) & (m[x+1][flagTail] == m_max4)):
+								break
 					j = j + 1
 					continue
 			for i in range(0,numRow):
@@ -313,3 +314,12 @@ t, w = SimpleTreeMatching(dom1.documentElement, dom2.documentElement)
 
 tbl = AlignAndLink(w, dom1.documentElement, dom2.documentElement)
 printTable('out.html', tbl)
+if checkInsert(w) == True:
+	print "Function checkInsert returns True"
+else:
+	print "Function checkInsert returns False"
+
+print insertIntoSeed(dom1.documentElement,dom2.documentElement,w).childNodes
+	
+for m in w: 
+	print m
