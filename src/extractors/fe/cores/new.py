@@ -1,7 +1,7 @@
 from xml.dom.minidom import parse, parseString
 import lxml.html
 from lxml.html.clean import Cleaner
-import tidy
+#import tidy
 from lxml import etree
 from StringIO import StringIO
 
@@ -63,158 +63,198 @@ def partialTreeAlignment(S,w):
 		S.removeChild(Ti)
 		temp = []
 		if (checkInsert(w)):
-			insertIntoSeed(Ts,Ti)
+			insertIntoSeed(Ts,Ti,w)
 			S = S + R
 			R = [[]]
 		else :
 			R.insert(len(R),Ti)
 	return Ts
-	
-def insertIntoSeed(Ts,Ti):
-	
-def checkInsert(w):
+def insertIntoSeed(Ts,Ti,w):
+	pass
 	m = [[x for x, y in row] for row in w]
-    numRow = len(m)
-    numCol = len(m[0])
-    if numCol < numRow:
-		j = 0 
-		#for j in range(0, numCol):
+	numRow = len(m)
+	numCol = len(m[0])
+	if numCol <= numRow:
+		flag1 = -1
+		flag2 = -1
+		j = 0
 		while (j < numCol):
-			m_max = max([m[i][j] for i in range(numRow)]):
+			m_max = max([m[i][j] for i in range(numRow)])
 			if m_max == 0:
-				if(j == 0):
+				flag1 = j
+				if j == 0: #=> insert before first row
 					for k in range(j+1,numCol):
 						j = k
 						m_max2 = max([m[i][k] for i in range(numRow)])
 						if m_max2 != 0:
+							flag2 = k
+							for x in range(flag1,flag2):
+								Ts.insertBefore(Ti.childNode[x],Ts.firstChild)
+							return insertIntoSeed(Ts,Ti,SimpleTreeMatching(Ts, Ti)[1])
+					j = j + 1
+					continue
+				else:
+					for k in range(j+1,numCol):
+						j = k
+						m_max2 = max([m[i][k] for i in range(numRow)])
+						if m_max2 != 0:
+							flag2 = k
+							for i in range(0,numRow):
+								if m[i][j] == m_max2:
+									for x in range(flag1,flag2):
+										Ts.insertBefore(Ti.childNode[x],Ts.childNode[i])
+									return insertIntoSeed(Ts,Ti,SimpleTreeMatching(Ts, Ti)[1])
+					j = j + 1
+					continue
+			for i in range(0,numRow):
+				if m[i][j] == m_max:
+					if m[i][j] == 1:
+						#return True
+						break
+					else:
+						insertIntroSeed(Ts,Ti,w[i][j][1])
+					break
+			j = j + 1
+					
+	else:
+		i = 0
+		flagHead = -1
+		flagTail = -1
+		while(i<numRow):
+			m_max = max(m[i])
+			if m_max != 0:
+				for j in range(0,numCol):
+					if m[i][j] == m_max:
+						flagHead = j
+						if m[i][j] == 1:
+							#return True
+							break 
+						elif i == 0:
 							break
-						if j == numCol:
-							return False
+						else:
+							for k in range(i+1,numRow):
+								m_max2 = max(m[k])
+								if m_max2 != 0:
+									for x  in range(0,numCol):
+										if m[i][x] == m_max2:
+											flagTail = x
+											for x in range(flagHead,flagTail):
+												Ts.insertBefore(Ti.childNode[x],Ts.childNode[i])
+											return insertIntoSeed(Ts,Ti,SimpleTreeMatching(Ts, Ti)[1])
+						insertIntroSeed(Ts,Ti,w[i][j][1])
+			i = i + 1
+	return Ts	
+
+def checkInsert(w):
+	m = [[x for x, y in row] for row in w]
+	numRow = len(m)
+	#print m
+	numCol = len(m[0])
+	#print numCol
+	if numCol <= numRow:
+		j = 0 
+		#for j in range(0, numCol):
+		while (j < numCol):
+			m_max1 = max([m[i][j] for i in range(numRow)])
+			print "m_max1 = ",m_max1
+			if m_max1 == 0:
+				if(j == 0):
+					for k in range(j+1,numCol):
+						#print k
+						j = k
+						m_max2 = max([m[i][k] for i in range(numRow)])
+						if m_max2 != 0:	
+							break
+					if j == (numCol-1):
+						return False
 					#check First Row
 					if m[0][j] == max([m[i][j] for i in range(numRow)]) :
+						#return False
 						j = j + 1
 						continue
 					else:
 						return False
 				else:
 					flagHead = j-1
+					print "flagHead = ",flagHead
 					flagTail = -1
 					for k in range(j+1,numCol):
 						j = k
+						print "j = ",j
 						m_max2 = max([m[i][k] for i in range(numRow)])
 						if m_max2 != 0:
 							flagTail = k
+							print "flagTail = ",flagTail
 							break
 					if flagTail == -1: #Check Final Row
-						if m[numRow-1][j] == max([m[i][j] for i in range(numRow)]) :
+						#print "here"
+						if m[numRow-1][flagHead] == max([m[i][flagHead] for i in range(numRow)]) :
 							#return True
 							break;
 					else: #Check Head and Tail are consecutive siblings
 						m_max3 = max([m[i][flagHead] for i in range(numRow)])
 						m_max4 = max([m[i][flagTail] for i in range(numRow)])
-						for x in range(0,numRow-1):
-							if ((m[x][flagHead] = m_max3) and (m[x+1][flagHead] != m_max4)) or ((m[x][flagHead] != m_max3) and (m[x+1][flagHead] == m_max4)):
+						print "m_max3 = ",m_max3
+						print "m_max4 = ",m_max4
+						for x in range(0,numRow):
+							print "m[x][flagHead] =", m[x][flagHead]
+							print "m[x+1][flagTail] =", m[x+1][flagTail]
+							if ((m[x][flagHead] == m_max3) & (m[x+1][flagTail] != m_max4)) | ((m[x][flagHead] != m_max3) and (m[x+1][flagTail] == m_max4)):
+								print "here"
 								return False
 					j = j + 1
 					continue
 			for i in range(0,numRow):
-				if m[i][j] = m_max:
+				if m[i][j] == m_max1:
 					if m[i][j] == 1:
-						return True
+						#return True
+						break
 					else:
 						checkInsert(w[i][j][1])
 					break
+			j = j + 1
 								
-    else:	# numCol > numRow
+	else:	# numCol > numRow
 		i = 0
-		while(i<numRow)
+		flagHead = -1
+		flagTail = -1
+		while(i<numRow):
 			m_max = max(m[i])
-			if m_max == 0:
-				if i==0:
-					for k in range(i+1,numRow):
-						i=k
-						m_max2 = max(m[k])
-						if m_max2 != 0
-							break
-						if i == numRow:
-							return False
-					#check First Column
-					if m[i][0] = max(m[i]):
-						i = i+1
-						continue
-					else:
-						return False
-				else:
-					flagHead = i-1
-					flagTail = -1
-					for k in range (i+1,numRow):
-						i=k
-						m_max2 = max(m[k])
-						if m_max2 != 0:
-							flagTail = k
-							break
-					if flagTail == -1:	#Check Final Column
-						if m[flagHead][numCol-1] == max(m[flagHead]):
+			if m_max != 0:
+				for j in range(0,numCol):
+					if m[i][j] == m_max:
+						flagHead = j
+						if m[i][j] == 1:
 							#return True
+							break 
+						elif i == 0:
 							break
-					else:  #Check Head and Tail are consecutive siblings
-						m_max3 = max(m[flagHead])
-						m_max4 = max(m[flagTail])
-						for x in range(0,numCol-1)
-							if ((m[flagHead][x] = m_max3) and (m[flagHead][x+1] != m_max4)) or ((m[flagHead][x] != m_max3) and (m[flagHead][x+1] == m_max4)):
-								return False
-						i = i + 1
-						continue
-			for j in range(0,numCol):
-				if m[i][j] = m_max:
-					if m[i][j] == 1:
-						return True
-					else:
+						else:
+							for k in range(i+1,numRow):
+								m_max2 = max(m[k])
+								if m_max2 != 0:
+									for x  in range(0,numCol):
+										if m[i][x] == m_max2:
+											flagTail = x
+											if flagTail > flagHead:
+												return False
 						checkInsert(w[i][j][1])
-					break
-	return True
-options = dict(output_xhtml=1,
-               clean=1, 
-               drop_proprietary_attributes=1, 
-               tidy_mark=0)                         
-#file1 = str(tidy.parse('657534', **options))
-# file2 = tidy.parse('657642', **options)
+			i = i + 1
+	return True		
 
-f = open('657534', 'r')
-parser = etree.HTMLParser(remove_comments=True)
-html = etree.HTML(f.read(), parser)
-result = etree.tostring(html, pretty_print=True, method="xml")
-events = "comment"
+dom1 = parse("abc.html")
+dom2 = parse("xyz.html")
 
-	#if action == "comment":
-	#	elem.clear()
-# print result
+#print dom1.documentElement.childNodes
 
+t, w = SimpleTreeMatching(dom1.documentElement, dom2.documentElement)
 
-f = open('xxx', 'w')
-f.write(result)
-dom1 = parseString(result)
+if checkInsert(w) == True:
+	print "Function checkInsert returns True"
+else:
+	print "Function checkInsert returns False"
 
-print dom1
-
-#dom1 = parseString(str(file1))
-#f = open('out.html', 'wb');
-#f.write( cleaner.clean_html(lxml.html.tostring(file1)))
-# f = open('657534', 'r')
-# print tidy.parseString(f.read())
-# a = lxml.html.tostring(lxml.html.parse('657534'))
-
-# print tidy.parse('xxx')
-
-# dom1 = parseString(a)
-
-# print tidy.parseString(lxml.html.tostring(lxml.html.parse('657534')))
-# print tidy.parseString(f.read())
-# print tidy.parse('a')
-# print tidy.parse('657534')
-
-#root = dom.documentElement
-#body = root.childNodes[0]
-#t, w = SimpleTreeMatching(body.childNodes[0], body.childNodes[1])
-
-#print AlignAndLink(w, body.childNodes[0], body.childNodes[1])
+#print insertIntoSeed(Ts,Ti,w)
+	
+for m in w: 
+	print m
