@@ -1,7 +1,8 @@
 from xml.dom.minidom import parse, parseString
 import lxml.html
 from lxml.html.clean import Cleaner
-#import tidy
+from lxml import etree
+import tidy
 from lxml import etree
 from StringIO import StringIO
 
@@ -27,32 +28,83 @@ def SimpleTreeMatching(node1, node2):
             
 def AlignAndLink(w, node1, node2):
     m = [[x for x, y in row] for row in w]
-    m_max = max([max(row) for row in m])
-    if m_max == 0:
-        return []
-    else :
-        table = []
-        numRow = len(m)
-        numCol = len(m[0])
-        if numCol < numRow:
-            for i in range(0, numCol):
-                for j in range(0, numRow):
-                    if m[j][i] == m_max:
-                        if m[j][i] == 1:
-                            table.append([node1.childNodes[j], node2.childNodes[i]])
-                        else:
-                            table += AlignAndLink(w[j][i][1], node1.childNodes[j], node2.childNodes[i])
-                        break
-        else:
-            for i in range(0, numRow):
-                for j in range(0, numCol):
-                    if m[i][j] == m_max:
-                        if m[i][j] == 1:
-                            table.append([node1.childNodes[i], node2.childNodes[j]])
-                        else:
-                            table += AlignAndLink(w[i][j][1], node1.childNodes[i], node2.childNodes[j])
-                        break
-        return table    
+    
+    table = []
+    numRow = len(m)
+    numCol = len(m[0])
+    if numCol < numRow:
+        for i in range(0, numCol):
+            m_max = max([m[j][i] for j in range(numRow)])
+            if m_max == 0 :
+                break
+            for j in range(0, numRow):
+                if m[j][i] == m_max:
+                    if m[j][i] == 1:
+                        table.append([node1.childNodes[j], node2.childNodes[i]])
+                    else:
+                        table += AlignAndLink(w[j][i][1], node1.childNodes[j], node2.childNodes[i])
+                    break
+    else:
+        for i in range(0, numRow):
+            m_max = max(m[i])
+            if m_max == 0:
+                break
+            for j in range(0, numCol):
+                if m[i][j] == m_max:
+                    if m[i][j] == 1:
+                        table.append([node1.childNodes[i], node2.childNodes[j]])
+                    else:
+                        table += AlignAndLink(w[i][j][1], node1.childNodes[i], node2.childNodes[j])
+                    break
+    return table    
+                         
+def printTable(filename, table):
+    file = open(filename, 'w')
+    file.write('<html><head><meta charset="utf-8"></head><body><table style="border: 1px solid;">')
+    x = [False for i in range(len(table))]
+    for i in range(len(table[0])):
+        file.write('<tr style="border: 1px solid;">')
+        for j in range(len(table)):
+            if table[j][i].nodeType == table[j][i].TEXT_NODE and (not table[j][i].data.isspace() ):
+                if table[j][i].parentNode.tagName != 'style' and table[j][i].parentNode.tagName != 'script':
+                    file.write('<td style="border: 1px solid;">')
+                    file.write(table[j][i].data.encode('utf8'))
+                    file.write('</td>')
+                    x[j] = True
+            else:
+                if i > 0 and x[j]:
+                    file.write('<td style="border: 1px solid;">')
+                    file.write('</td>')
+                
+        file.write('</tr>')
+    file.write('</table></body></html>')
+    
+def cleanHTML(dom):    
+    clean_recursive(dom.documentElement)
+    
+def clean_recursive(node):
+    #child = node.lastChild
+    for i in range(len(node.childNodes)):
+        
+        child = node.childNodes[i]
+        print child
+        if child.nodeType == child.ELEMENT_NODE:
+            #print child.tagName
+            if child.tagName.lower() == 'script' or child.tagName.lower() == 'style':
+                
+                node.removeChild(child)
+                node.unlink()
+            else:
+                clean_recursive(child)
+        elif child.nodeType == child.TEXT_NODE:
+            #print "node data"
+            if child.data.isspace() or (len(child.data) == 0):
+                
+                node.removeChild(child)
+                node.unlink()
+        
+        
+        
 
 def partialTreeAlignment(S,w):
 	Ts = S.childNodes[0]
@@ -241,20 +293,23 @@ def checkInsert(w):
 						checkInsert(w[i][j][1])
 			i = i + 1
 	return True		
+        
+f1 = open('data/657534', 'r')
+f2 = open('data/657642', 'r')
+parser = etree.HTMLParser(recover=True, remove_blank_text=True, remove_comments=True)
 
-dom1 = parse("abc.html")
-dom2 = parse("xyz.html")
+html1 = etree.HTML(f1.read(), parser)
+html2 = etree.HTML(f2.read(), parser)
+result1 = etree.tostring(html1, pretty_print=True, method="xml")
+result2 = etree.tostring(html2, pretty_print=True,method="xml")
 
-#print dom1.documentElement.childNodes
+dom1 = parseString(result1)
+dom2 = parseString(result2)
+
+body1 = dom1.getElementsByTagName('body')[0]
+body2 = dom2.getElementsByTagName('body')[0]
 
 t, w = SimpleTreeMatching(dom1.documentElement, dom2.documentElement)
 
-if checkInsert(w) == True:
-	print "Function checkInsert returns True"
-else:
-	print "Function checkInsert returns False"
-
-#print insertIntoSeed(Ts,Ti,w)
-	
-for m in w: 
-	print m
+tbl = AlignAndLink(w, dom1.documentElement, dom2.documentElement)
+printTable('out.html', tbl)
