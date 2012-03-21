@@ -65,16 +65,16 @@ def printTable(filename, table):
     for i in range(len(table[0])):
         file.write('<tr style="border: 1px solid;">')
         for j in range(len(table)):
-            if table[j][i].nodeType == table[j][i].TEXT_NODE and (not table[j][i].data.isspace() ):
-                if table[j][i].parentNode.tagName != 'style' and table[j][i].parentNode.tagName != 'script':
-                    file.write('<td style="border: 1px solid;">')
-                    file.write(table[j][i].data.encode('utf8'))
-                    file.write('</td>')
-                    x[j] = True
-            else:
-                if i > 0 and x[j]:
-                    file.write('<td style="border: 1px solid;">')
-                    file.write('</td>')
+            if table[j][i].nodeType == table[j][i].TEXT_NODE: # and (not table[j][i].data.isspace() )
+                #if table[j][i].parentNode.tagName != 'style' and table[j][i].parentNode.tagName != 'script':
+				file.write('<td style="border: 1px solid;">')
+				file.write(table[j][i].data.encode('utf8'))
+				file.write('</td>')
+				x[j] = True
+            # else:
+                # if i > 0 and x[j]:
+                #   file.write('<td style="border: 1px solid;">')
+                #    file.write('</td>')
                 
         file.write('</tr>')
     file.write('</table></body></html>')
@@ -295,12 +295,39 @@ def checkInsert(w):
 			i = i + 1
 	return True		
         
+# @hungvjnh
+def cleanString(html):
+	html = html.replace('\n', '')
+	html = html.replace('\n\r', '')
+	html = html.replace('\t', '')
+	#html = html.replace('  ', '')
+	cleaner = Cleaner(page_structure=False, style=True, javascript=True,scripts=True)
+	#cleaner.kill_tags = ['p', 'img']
+	#cleaner.remove_tags = ['p']
+
+	result = cleaner.clean_html(html)
+
+	test = open('test.html', 'w')
+	test.write(result)
+	
+	return result
+
 f1 = open('data/657534', 'r')
 f2 = open('data/657642', 'r')
-parser = etree.HTMLParser(recover=True, remove_blank_text=True, remove_comments=True)
 
-html1 = etree.HTML(f1.read(), parser)
-html2 = etree.HTML(f2.read(), parser)
+parser = etree.HTMLParser(recover=True, remove_blank_text=True, remove_comments=True,encoding="utf-8")
+
+s1 = f1.read()
+s2 = f2.read()
+
+# @hungvjnh
+s11 = cleanString(s1)
+s22 = cleanString(s2)
+
+html1 = etree.HTML(s11, parser)
+html2 = etree.HTML(s22, parser)
+
+
 result1 = etree.tostring(html1, pretty_print=True, method="xml")
 result2 = etree.tostring(html2, pretty_print=True,method="xml")
 
