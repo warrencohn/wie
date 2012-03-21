@@ -2,7 +2,7 @@ from xml.dom.minidom import parse, parseString
 import lxml.html
 from lxml.html.clean import Cleaner
 from lxml import etree
-import tidy
+#import tidy
 from lxml import etree
 from StringIO import StringIO
 
@@ -163,7 +163,7 @@ def insertIntoSeed(Ts,Ti,w):
 						#return True
 						break
 					else:
-						insertIntroSeed(Ts,Ti,w[i][j][1])
+						insertIntoSeed(Ts,Ti,w[i][j][1])
 					break
 			j = j + 1
 					
@@ -192,7 +192,7 @@ def insertIntoSeed(Ts,Ti,w):
 											for x in range(flagHead,flagTail):
 												Ts.insertBefore(Ti.childNodes[x],Ts.childNodes[i])
 											return insertIntoSeed(Ts,Ti,SimpleTreeMatching(Ts, Ti)[1])
-						insertIntroSeed(Ts,Ti,w[i][j][1])
+						insertIntoSeed(Ts,Ti,w[i][j][1])
 			i = i + 1
 	return Ts	
 
@@ -341,12 +341,3 @@ t, w = SimpleTreeMatching(dom1.documentElement, dom2.documentElement)
 
 tbl = AlignAndLink(w, dom1.documentElement, dom2.documentElement)
 printTable('out.html', tbl)
-if checkInsert(w) == True:
-	print "Function checkInsert returns True"
-else:
-	print "Function checkInsert returns False"
-
-print insertIntoSeed(dom1.documentElement,dom2.documentElement,w).childNodes
-	
-for m in w: 
-	print m
