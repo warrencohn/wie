@@ -196,10 +196,9 @@ def insertIntoSeed(Ts,Ti,w):
 				for j in range(0,numCol):
 					if m[i][j] == m_max:
 						if (i == 0) & (j != 0):
-							
-							print "i = ",i
-							print "j = ",j
-							print "\n"
+							#print "i = ",i
+							#print "j = ",j
+							#print "\n"
 							for x in range(0,j):
 								#print Ti.childNodes
 								print Ts.childNodes
@@ -207,8 +206,8 @@ def insertIntoSeed(Ts,Ti,w):
 								Ts.insertBefore(tree,Ts.childNodes[i+x])
 								
 								
-								print "spt = ",SimpleTreeMatching(Ts, Ti)[1]
-								print "\n"
+								#print "spt = ",SimpleTreeMatching(Ts, Ti)[1]
+								#print "\n"
 							return insertIntoSeed(Ts,Ti,SimpleTreeMatching(Ts, Ti)[1])
 						else:							
 							flagHead = j
@@ -234,7 +233,7 @@ def insertIntoSeed(Ts,Ti,w):
 													Ts.insertBefore(tree,Ts.childNodes[i])
 												return insertIntoSeed(Ts,Ti,SimpleTreeMatching(Ts, Ti)[1])
 							if f != 1 :
-								print "here"
+								#print "here"
 								for x in range(flagHead+1,numCol):
 									#print "flagHead = ",flagHead
 									#print "x = ",x
