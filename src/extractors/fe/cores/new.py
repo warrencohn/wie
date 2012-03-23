@@ -141,7 +141,10 @@ def insertIntoSeed(Ts,Ti,w):
 						if m_max2 != 0:
 							flag2 = k
 							for x in range(flag1,flag2):
-								Ts.insertBefore(Ti.childNodes[x],Ts.firstChild)
+								#print Ti.childNodes
+								#print Ts.childNodes
+								tree = Ti.childNodes[x].cloneNode(True)
+								Ts.insertBefore(tree,Ts.firstChild)
 							return insertIntoSeed(Ts,Ti,SimpleTreeMatching(Ts, Ti)[1])
 					j = j + 1
 					continue
@@ -154,7 +157,10 @@ def insertIntoSeed(Ts,Ti,w):
 							for i in range(0,numRow):
 								if m[i][j] == m_max2:
 									for x in range(flag1,flag2):
-										Ts.insertBefore(Ti.childNodes[x],Ts.childNodes[i])
+										#print Ti.childNodes
+										#print Ts.childNodes
+										tree = Ti.childNodes[x].cloneNode(True)
+										Ts.insertBefore(tree,Ts.childNodes[i])
 									return insertIntoSeed(Ts,Ti,SimpleTreeMatching(Ts, Ti)[1])
 					j = j + 1
 					continue
@@ -175,25 +181,51 @@ def insertIntoSeed(Ts,Ti,w):
 		while(i<numRow):
 			m_max = max(m[i])
 			if m_max != 0:
+				#print m_max
 				for j in range(0,numCol):
 					if m[i][j] == m_max:
+						if (i == 0) & (j != 0):
+							for x in range(0,j):
+								#print Ti.childNodes
+								print Ts.childNodes
+								tree = Ti.childNodes[x].cloneNode(True)
+								Ts.insertBefore(tree,Ts.childNodes[i+x])
+							#return insertIntoSeed(Ts,Ti,SimpleTreeMatching(Ts, Ti)[1])
 						flagHead = j
-						if m[i][j] == 1:
-							#return True
-							break 
-						elif i == 0:
-							break
-						else:
-							for k in range(i+1,numRow):
-								m_max2 = max(m[k])
-								if m_max2 != 0:
-									for x  in range(0,numCol):
-										if m[i][x] == m_max2:
-											flagTail = x
-											for x in range(flagHead,flagTail):
-												Ts.insertBefore(Ti.childNodes[x],Ts.childNodes[i])
-											return insertIntoSeed(Ts,Ti,SimpleTreeMatching(Ts, Ti)[1])
+						f = 0
+						for k in range(i+1,numRow):
+							f = 1 #con row tiep theo
+							m_max2 = max(m[k])
+							if m_max2 != 0:
+								for x  in range(0,numCol):
+									if m[i][x] == m_max2:
+										flagTail = x
+										for x in range(flagHead,flagTail):
+											#print Ti.childNodes
+											print Ts.childNodes
+											tree = Ti.childNodes[x].cloneNode(True)
+											Ts.insertBefore(tree,Ts.childNodes[i])
+										#return insertIntoSeed(Ts,Ti,SimpleTreeMatching(Ts, Ti)[1])
+						if f != 1 :
+							for x in range(flagHead+1,numCol):
+								#print "flagHead = ",flagHead
+								#print "x = ",x
+								#print Ti.childNodes
+								print Ts.childNodes
+								tree = Ti.childNodes[x].cloneNode(True)
+								Ts.appendChild(tree)
+							return insertIntoSeed(Ts,Ti,SimpleTreeMatching(Ts, Ti)[1])
+						print "here"
+						#return insertIntoSeed(Ts,Ti,w[i][j][1])
+			for j in range(0,numCol):
+				if m[i][j] == m_max:
+					if m[i][j] == 1:
+						#return True
+						break
+					else:
+						print "here"
 						insertIntoSeed(Ts,Ti,w[i][j][1])
+					break
 			i = i + 1
 	return Ts	
 
@@ -274,14 +306,18 @@ def checkInsert(w):
 		flagTail = -1
 		while(i<numRow):
 			m_max = max(m[i])
+			#print m_max
 			if m_max != 0:
 				for j in range(0,numCol):
 					if m[i][j] == m_max:
+						#print j
 						flagHead = j
-						if m[i][j] == 1:
-							#return True
-							break 
-						elif i == 0:
+						#if m[i][j] == 1:
+						#	#return True
+						#	break 
+						#elif i == 0:
+						#	break
+						if i == 0:
 							break
 						else:
 							for k in range(i+1,numRow):
@@ -293,6 +329,14 @@ def checkInsert(w):
 											if flagTail > flagHead:
 												return False
 						checkInsert(w[i][j][1])
+			for j in range(0,numCol):
+				if m[i][j] == m_max:
+					if m[i][j] == 1:
+						#return True
+						break
+					else:
+						checkInsert(w[i][j][1])
+					break
 			i = i + 1
 	return True		
         
