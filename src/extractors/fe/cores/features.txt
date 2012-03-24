@@ -1,0 +1,28 @@
+Features
+1/ so luong tu viet hoa / tong so tu
+2/ so luong dau , 
+3/ pattern
+    url pattern     2
+    email pattern   1
+    ko match        0
+4/ frequent word
+    Ông/Bà                              4
+    Công ty/Cơ Sở/...                   3
+    Tel/Telephone/Phone/ÐT/Điện thoại   2
+    Fax                                 1    
+    Ko                                  0
+5/ <a> ?
+6/ so luong chu so
+7/ so luong chu so lien tuc lon nhat
+
+-----------------------------------------------
+Label
+0   N/A
+1   Ten
+2   Ðia chi
+3   Ðien thoai
+4   Fax
+5   Email
+6   Website
+7   CEO
+8   Phan loai
