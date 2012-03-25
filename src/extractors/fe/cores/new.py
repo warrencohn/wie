@@ -79,33 +79,6 @@ def printTable(filename, table):
         file.write('</tr>')
     file.write('</table></body></html>')
     
-def cleanHTML(dom):    
-    clean_recursive(dom.documentElement)
-    
-def clean_recursive(node):
-    #child = node.lastChild
-    for i in range(len(node.childNodes)):
-        
-        child = node.childNodes[i]
-        print child
-        if child.nodeType == child.ELEMENT_NODE:
-            #print child.tagName
-            if child.tagName.lower() == 'script' or child.tagName.lower() == 'style':
-                
-                node.removeChild(child)
-                node.unlink()
-            else:
-                clean_recursive(child)
-        elif child.nodeType == child.TEXT_NODE:
-            #print "node data"
-            if child.data.isspace() or (len(child.data) == 0):
-                
-                node.removeChild(child)
-                node.unlink()
-        
-        
-        
-
 def partialTreeAlignment(S,w):
 	Ts = S.childNodes[0]
 	S.removeChild(Ts)
