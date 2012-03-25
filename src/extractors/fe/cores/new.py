@@ -125,7 +125,10 @@ def partialTreeAlignment(S,w):
 def insertIntoSeed(Ts,Ti,w):
 	m = [[x for x, y in row] for row in w]
 	numRow = len(m)
+	#print "m = ",m
 	numCol = len(m[0])
+	#print "numCol = ",numCol
+	#print "\n"
 	if numCol <= numRow:
 		flag1 = -1
 		flag2 = -1
@@ -144,16 +147,17 @@ def insertIntoSeed(Ts,Ti,w):
 								flag2 = k
 								for x in range(flag1,flag2):
 									#print Ti.childNodes
-									#print Ts.childNodes
+									print Ts.toxml()
 									tree = Ti.childNodes[x].cloneNode(True)
 									Ts.insertBefore(tree,Ts.firstChild)
 								return insertIntoSeed(Ts,Ti,SimpleTreeMatching(Ts, Ti)[1])
 				else:
+					#print "here"
 					m_max2 = max([m[i][flag1-1] for i in range(numRow)])
 					m_max3 = -1
 					if m[numRow-1][flag1-1] == m_max2 :
 						for x in range(flag1,numCol):
-							print Ts.childNodes
+							print Ts.toxml()
 							tree = Ti.childNodes[x].cloneNode(True)
 							Ts.appendChild(tree)
 						return insertIntoSeed(Ts,Ti,SimpleTreeMatching(Ts, Ti)[1])
@@ -170,21 +174,18 @@ def insertIntoSeed(Ts,Ti,w):
 								if m[i][j] == m_max2:#Lay vi tri i 
 									for x in range(flag1,flag2):
 										#print Ti.childNodes
-										#print Ts.childNodes
+										print Ts.toxml()
 										tree = Ti.childNodes[x].cloneNode(True)
 										Ts.insertBefore(tree,Ts.childNodes[i])
 									return insertIntoSeed(Ts,Ti,SimpleTreeMatching(Ts, Ti)[1])
 									m_max1 = m_max3
 			for i in range(numRow):
-				if m[i][j] == m_max1:
-					if m[i][j] == 1:
-						#return True
+				if (m[i][j] == m_max1) & (m_max1 != 0):
+					if len(w[i][j][1]) != 0:
+						insertIntoSeed(Ts.childNodes[i],Ti.childNodes[j],w[i][j][1])
+					else: #m[i][j] == 1:
 						break
-					else:
-						insertIntoSeed(Ts,Ti,w[i][j][1])
-					break
-			j = j + 1
-					
+			j = j + 1		
 	else:
 		i = 0
 		flagHead = -1
@@ -201,11 +202,9 @@ def insertIntoSeed(Ts,Ti,w):
 							#print "\n"
 							for x in range(0,j):
 								#print Ti.childNodes
-								print Ts.childNodes
+								print Ts.toxml()
 								tree = Ti.childNodes[x].cloneNode(True)
 								Ts.insertBefore(tree,Ts.childNodes[i+x])
-								
-								
 								#print "spt = ",SimpleTreeMatching(Ts, Ti)[1]
 								#print "\n"
 							return insertIntoSeed(Ts,Ti,SimpleTreeMatching(Ts, Ti)[1])
@@ -226,9 +225,9 @@ def insertIntoSeed(Ts,Ti,w):
 											#print x
 											flagTail = x
 											if flagHead != flagTail-1:
-												for x in range(flagHead,flagTail):
+												for x in range(flagHead+1,flagTail):
 													#print Ti.childNodes
-													print Ts.childNodes
+													print Ts.toxml()
 													tree = Ti.childNodes[x].cloneNode(True)
 													Ts.insertBefore(tree,Ts.childNodes[i])
 												return insertIntoSeed(Ts,Ti,SimpleTreeMatching(Ts, Ti)[1])
@@ -239,61 +238,89 @@ def insertIntoSeed(Ts,Ti,w):
 									#print "x = ",x
 									#print "here"
 									#print Ti.childNodes
-									print Ts.childNodes
+									print Ts.toxml()
 									tree = Ti.childNodes[x].cloneNode(True)
 									Ts.appendChild(tree)
 								return insertIntoSeed(Ts,Ti,SimpleTreeMatching(Ts, Ti)[1])
 							#print "here"
 							#return insertIntoSeed(Ts,Ti,w[i][j][1])
 			for j in range(0,numCol):
-				if m[i][j] == m_max:
-					if m[i][j] == 1:
-						#return True
+				#print "here"
+				if (m[i][j] == m_max) & (m_max != 0):
+					if len(w[i][j][1]) != 0:
+						print Ts.childNodes[i].toxml()
+						insertIntoSeed(Ts.childNodes[i],Ti.childNodes[j],w[i][j][1])
+					else: #m[i][j] == 1:
 						break
-					else:
-						#print "here"
-						insertIntoSeed(Ts,Ti,w[i][j][1])
-					break
 			i = i + 1
 	return Ts	
 
 def checkInsert(w):
 	m = [[x for x, y in row] for row in w]
 	numRow = len(m)
-	#print m
+	#print "m = ",m
 	numCol = len(m[0])
-	#print numCol
+	#print "numCol = ",numCol
 	if numCol <= numRow:
 		j = 0
-		while (j < numCol):
-			
+		has = []
+		while (j < numCol):		
 			m_max1 = max([m[i][j] for i in range(numRow)])
 			#print "m_max1 = ",m_max1
-			if (m_max1 != 0) & (j != 0):
-				#kiem tra max truoc do co theo thu tu hay khong
-				m_max0 = max([m[i][j-1] for i in range(numRow)])
-				if m_max0 != 0:
+			if (m_max1 != 0):
+				#print "here"
+				if j == 0:
+					#print "here"
 					for x in range(numRow):
-						if m[x][j-1] == m_max0:
-							rowHead = x
 						if m[x][j] == m_max1:
-							rowTail = x
-					if rowHead > rowTail:
-						return False
-			if m_max1 == 0:				
-				if(j == 0):
-					for k in range(j+1,numCol):
-						#print k
-						j = k
-						m_max2 = max([m[i][k] for i in range(numRow)])
-						if m_max2 != 0:	
-							if m[0][j] == m_max2:
-								m_max1 = m_max2
+							has.append(x)
+							m[x][j] = m[x][j] + 1
+							break
+					
+				else:
+					#kiem tra max truoc do co theo thu tu hay khong
+					m_max0 = max([m[i][j-1] for i in range(numRow)])
+					if m_max0 != 0:
+						#print "here"
+						rowHead = -1
+						rowTail = -1
+						for x in range(numRow):
+							if m[x][j-1] == m_max0:
+								rowHead = x
+								#has.append(x)
 								break
-							else:
-								return False
-						if k == (numCol-1):
+						for x in range(numRow):				
+							if (m[x][j] == m_max1) & (has.count(x) == 0 ):
+								#print "x = ",x
+								#print "has = ",has
+								rowTail = x
+								m[x][j] = m[x][j] + 1
+								has.append(x)
+								break
+						print "m = "
+						print "\n"	
+						for l in m:
+							print l
+						if (rowHead > rowTail) & (rowHead != -1) & (rowTail != -1):
 							return False
+			if m_max1 == 0:	
+				#print "here"
+				if(j == 0):
+					if numCol == 1:
+						return False
+					else:
+						for k in range(j+1,numCol):
+							#print k
+							j = k
+							m_max2 = max([m[i][k] for i in range(numRow)])
+							if m_max2 != 0:	
+								if m[0][j] == m_max2:
+									m_max1 = m_max2
+									break
+								else:
+									return False
+							if k == (numCol-1):
+								return False
 				else:
 					flagHead = j-1
 					m_max2 = max([m[i][flagHead] for i in range(numRow)])
@@ -317,45 +344,67 @@ def checkInsert(w):
 								elif ((m[x][flagHead] == m_max2) & (m[x+1][flagTail] == m_max3)):
 									break
 							m_max1 = m_max3
+			#print "m = ",m
+			#print "\n"
 			for i in range(numRow):
-				if m[i][j] == m_max1:
-					if m[i][j] == 1:
+				if (m[i][j] == m_max1) & (m_max1 != 0):
+					if len(w[i][j][1]) != 0:
+						check = checkInsert(w[i][j][1])
+						if check == False:
+							return False
+					else: #m[i][j] == 1:
 						break
-					else:
-						checkInsert(w[i][j][1])
-					break
 			j = j + 1
 								
 	else:	# numCol > numRow
 		i = 0
+		has = []
 		while (i < numRow):
 			m_max1 = max(m[i])
 			#print "m_max1 = ",m_max1
 			if (m_max1 != 0) & (i != 0) :
-				#kiem tra max truoc do co theo thu tu hay khong
-				m_max0 = max(m[i-1])
-				if m_max0 != 0:
+				if i == 0:
 					for x in range(numCol):
-						if m[i-1][x] == m_max0:
-							rowHead = x
 						if m[i][x] == m_max1:
-							rowTail = x
-					if rowHead > rowTail:
-						return False
+							has.append(x)
+							m[i][x] = m[i][x] + 1
+							break
+				else:
+					#kiem tra max truoc do co theo thu tu hay khong
+					m_max0 = max(m[i-1])
+					if m_max0 != 0:
+						#print "here"
+						#print "i = ",i
+						rowHead = -1
+						rowTail = -1
+						for x in range(numCol):
+							if m[i-1][x] == m_max0:
+								rowHead = x
+								break
+						for x in range(numCol):
+							if (m[i][x] == m_max1) & (has.count(x) == 0):
+								rowTail = x
+								m[i][x] = m[i][x] + 1
+								break
+						if (rowHead > rowTail) & (rowHead != -1) & (rowTail != -1):
+							return False
 			if m_max1 == 0:
 				if(i == 0):
-					for k in range(i+1,numRow):
-						#print k
-						i = k
-						m_max2 = max(m[i])
-						if m_max2 != 0:	
-							if m[i][0] == m_max2:
-								m_max1 = m_max2
-								break
-							else:
+					if numRow == 1:
+						return False
+					else:
+						for k in range(i+1,numRow):
+							#print k
+							i = k
+							m_max2 = max(m[i])
+							if m_max2 != 0:	
+								if m[i][0] == m_max2:
+									m_max1 = m_max2
+									break
+								else:
+									return False
+							if k == (numRow-1):
 								return False
-						if k == (numRow-1):
-							return False
 				else:
 					flagHead = i-1
 					m_max2 = max(m[flagHead])
@@ -371,20 +420,28 @@ def checkInsert(w):
 								flagTail = k
 								break
 						if flagTail == -1: #Check Final Row
+							#print "m = ",m
 							return False	
 						else: #Check Head and Tail are consecutive siblings
 							for x in range(numCol):
 								if ((m[flagHead][x] == m_max2) & (m[flagTail][x+1] != m_max3)) | ((m[flagHead][x] != m_max2) and (m[flagTail][x+1] == m_max3)):
+									#print "m = ",m
 									return False
 								elif ((m[flagHead][x] == m_max2) & (m[flagTail][x+1] == m_max3)):
 									break
 							m_max1 = m_max3
 			for j in range(numCol):
-				if m[i][j] == m_max1:
-					if m[i][j] == 1:
+				#print "j = ",j
+				if (m[i][j] == m_max1) & (m_max1 != 0):
+					if len(w[i][j][1]) != 0:
+						#print len(w[i][j][1])
+						#print "w[%d][%d][1] = "%(i,j)+str(w[i][j][1])
+						check = checkInsert(w[i][j][1])
+						if check == False:
+							#print "m = ",m
+							return False
+					else: #m[i][j] == 1:
 						break
-					else:
-						checkInsert(w[i][j][1])
-					break
 			i = i + 1
+	
 	return True
