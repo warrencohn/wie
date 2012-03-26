@@ -57,10 +57,14 @@ def InsertIntoSeed(w, node1, node2):
                     if p != -1 and match[p] >= j:
                         return None
                     else:
+                        if p == -1:
+                            matchRow = -1
+                        else:
+                            matchRow = match[p]
                         if i == (p+1):
-                            for x in range(match[p]+1, j):
+                            for x in range(matchRow+1, j):
                                 seed.appendChild(node1.childNodes[x].cloneNode(True))                                
-                        elif j == (match[p]+1):
+                        elif j == (matchRow+1):
                             for x in range(p+1, i):
                                 seed.appendChild(node2.childNodes[x].cloneNode(True))
                         else:
@@ -99,10 +103,14 @@ def InsertIntoSeed(w, node1, node2):
                     if p != -1 and match[p] >= j:
                         return None
                     else:
+                        if p == -1:
+                            matchCol = -1
+                        else:
+                            matchCol = match[p]
                         if i == (p+1):
-                            for x in range(match[p]+1, j):
+                            for x in range(matchCol+1, j):
                                 seed.appendChild(node2.childNodes[x].cloneNode(True))                                
-                        elif j == (match[p]+1):
+                        elif j == (matchCol+1):
                             for x in range(p+1, i):
                                 seed.appendChild(node1.childNodes[x].cloneNode(True))
                         else:
