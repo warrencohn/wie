@@ -1,4 +1,4 @@
-from xml.dom.minidom import parse, parseString
+from xml.dom.minidom import Document, parse, parseString
 import lxml.html
 from lxml.html.clean import Cleaner
 from lxml import etree
@@ -78,343 +78,181 @@ def printTable(filename, table):
                 
         file.write('</tr>')
     file.write('</table></body></html>')
+
+def Match(Node,t):
+    Children = []
+    for i in range(Node.childNodes.length):
+        Children.append(Node.childNodes[i])
+    root = Document()
+    while (Children != []) :
+        ChildFirst = Children[0]
+        S = []
+        S.append(ChildFirst)
+        Children.remove(ChildFirst)
+        for ChildR in Children:
+            if TreeMatch(ChildFirst,ChildR) > t:
+                S.append(ChildR)
+                Children.remove(ChildR)
+        root.appendChild(PartialTreeAlignment(S))
+        break
+    return GenRecordPattern(root)            
+
+def GenRecordPattern(Node):
+    for subNode in Node.chilNodes:
+        
     
-def partialTreeAlignment(S,w):
-	Ts = S.childNodes[0]
-	S.removeChild(Ts)
-	Document.createElement(R)
-	while (S.hasChildNodes()):
-		Ti = S.childNodes[0]
-		S.removeChild(Ti)
-		temp = []
-		if (checkInsert(w)):
-			insertIntoSeed(Ts,Ti,w)
-			S = S + R
-			R = [[]]
-		else :
-			R.insert(len(R),Ti)
-	return Ts
+def TreeMatch(Node1,Node2):
+    m = SimpleTreeMatching(Node1,Node2)[0]
+    return m/((Nodes(Node1)+Nodes(Node2))/2.0 + 1)
 
-def insertIntoSeed(Ts,Ti,w):
-	m = [[x for x, y in row] for row in w]
-	numRow = len(m)
-	#print "m = ",m
-	numCol = len(m[0])
-	#print "numCol = ",numCol
-	#print "\n"
-	if numCol <= numRow:
-		flag1 = -1
-		flag2 = -1
-		j = 0
-		while (j < numCol):
-			m_max1 = max([m[i][j] for i in range(numRow)])
-			if m_max1 == 0:
-				flag1 = j
-				if j == 0: #=> insert before first row
-					for k in range(j+1,numCol):
-						j = k
-						m_max2 = max([m[i][k] for i in range(numRow)])
-						if m_max2 != 0:
-							if m[0][j] == m_max2:
-								m_max1 = m_max2
-								flag2 = k
-								for x in range(flag1,flag2):
-									#print Ti.childNodes
-									print Ts.toxml()
-									tree = Ti.childNodes[x].cloneNode(True)
-									Ts.insertBefore(tree,Ts.firstChild)
-								return insertIntoSeed(Ts,Ti,SimpleTreeMatching(Ts, Ti)[1])
-				else:
-					#print "here"
-					m_max2 = max([m[i][flag1-1] for i in range(numRow)])
-					m_max3 = -1
-					if m[numRow-1][flag1-1] == m_max2 :
-						for x in range(flag1,numCol):
-							print Ts.toxml()
-							tree = Ti.childNodes[x].cloneNode(True)
-							Ts.appendChild(tree)
-						return insertIntoSeed(Ts,Ti,SimpleTreeMatching(Ts, Ti)[1])
-					else:
-						flag2 = -1
-						for k in range(j+1,numCol):
-							j = k
-							m_max3 = max([m[i][k] for i in range(numRow)])
-							if m_max3 != 0:
-								flag2 = k
-								break
-						if flag2 != -1:
-							for i in range(0,numRow):
-								if m[i][j] == m_max2:#Lay vi tri i 
-									for x in range(flag1,flag2):
-										#print Ti.childNodes
-										print Ts.toxml()
-										tree = Ti.childNodes[x].cloneNode(True)
-										Ts.insertBefore(tree,Ts.childNodes[i])
-									return insertIntoSeed(Ts,Ti,SimpleTreeMatching(Ts, Ti)[1])
-									m_max1 = m_max3
-			for i in range(numRow):
-				if (m[i][j] == m_max1) & (m_max1 != 0):
-					if len(w[i][j][1]) != 0:
-						insertIntoSeed(Ts.childNodes[i],Ti.childNodes[j],w[i][j][1])
-					else: #m[i][j] == 1:
-						break
-			j = j + 1		
-	else:
-		i = 0
-		flagHead = -1
-		flagTail = -1
-		while(i<numRow):
-			m_max = max(m[i])
-			if m_max != 0:
-				#print m_max
-				for j in range(0,numCol):
-					if m[i][j] == m_max:
-						if (i == 0) & (j != 0):
-							#print "i = ",i
-							#print "j = ",j
-							#print "\n"
-							for x in range(0,j):
-								#print Ti.childNodes
-								print Ts.toxml()
-								tree = Ti.childNodes[x].cloneNode(True)
-								Ts.insertBefore(tree,Ts.childNodes[i+x])
-								#print "spt = ",SimpleTreeMatching(Ts, Ti)[1]
-								#print "\n"
-							return insertIntoSeed(Ts,Ti,SimpleTreeMatching(Ts, Ti)[1])
-						else:							
-							flagHead = j
-							f = 0
-							for k in range(i+1,numRow):
-								i = k
-								#print "k = ",k
-								f = 1 #con row tiep theo
-								m_max2 = max(m[k])
-								if m_max2 != 0:
-									#print "m_max2 = ",m_max2
-									for x  in range(0,numCol):
-										#print "i = ",i
-										#print "x = ",x
-										if m[i][x] == m_max2:
-											#print x
-											flagTail = x
-											if flagHead != flagTail-1:
-												for x in range(flagHead+1,flagTail):
-													#print Ti.childNodes
-													print Ts.toxml()
-													tree = Ti.childNodes[x].cloneNode(True)
-													Ts.insertBefore(tree,Ts.childNodes[i])
-												return insertIntoSeed(Ts,Ti,SimpleTreeMatching(Ts, Ti)[1])
-							if f != 1 :
-								#print "here"
-								for x in range(flagHead+1,numCol):
-									#print "flagHead = ",flagHead
-									#print "x = ",x
-									#print "here"
-									#print Ti.childNodes
-									print Ts.toxml()
-									tree = Ti.childNodes[x].cloneNode(True)
-									Ts.appendChild(tree)
-								return insertIntoSeed(Ts,Ti,SimpleTreeMatching(Ts, Ti)[1])
-							#print "here"
-							#return insertIntoSeed(Ts,Ti,w[i][j][1])
-			for j in range(0,numCol):
-				#print "here"
-				if (m[i][j] == m_max) & (m_max != 0):
-					if len(w[i][j][1]) != 0:
-						print Ts.childNodes[i].toxml()
-						insertIntoSeed(Ts.childNodes[i],Ti.childNodes[j],w[i][j][1])
-					else: #m[i][j] == 1:
-						break
-			i = i + 1
-	return Ts	
+def Nodes(Node):
+    count = Node.childNodes.length
+    for subNode in Node.childNodes:
+        count = count + Nodes(subNode)
+    return count
+ 
+def PartialTreeAlignment(S):
+    Ts = S[0]
+    S.remove(Ts)
+    R = []
+    while (S != []):
+        Ti = S[0]
+        S.remove(Ti)
+        w = SimpleTreeMatching(Ts,Ti)[1]
+        seed = InsertIntoSeed(w,Ts,Ti)
+        if seed:
+            Ts = seed
+            S = S + R
+            R = []
+        else :
+            R.append(Ti)
+    return Ts
 
-def checkInsert(w):
-	m = [[x for x, y in row] for row in w]
-	numRow = len(m)
-	#print "m = ",m
-	numCol = len(m[0])
-	#print "numCol = ",numCol
-	if numCol <= numRow:
-		j = 0
-		has = []
-		while (j < numCol):		
-			m_max1 = max([m[i][j] for i in range(numRow)])
-			#print "m_max1 = ",m_max1
-			if (m_max1 != 0):
-				#print "here"
-				if j == 0:
-					#print "here"
-					for x in range(numRow):
-						if m[x][j] == m_max1:
-							has.append(x)
-							m[x][j] = m[x][j] + 1
-							break
-					
-				else:
-					#kiem tra max truoc do co theo thu tu hay khong
-					m_max0 = max([m[i][j-1] for i in range(numRow)])
-					if m_max0 != 0:
-						#print "here"
-						rowHead = -1
-						rowTail = -1
-						for x in range(numRow):
-							if m[x][j-1] == m_max0:
-								rowHead = x
-								#has.append(x)
-								break
-						for x in range(numRow):				
-							if (m[x][j] == m_max1) & (has.count(x) == 0 ):
-								#print "x = ",x
-								#print "has = ",has
-								rowTail = x
-								m[x][j] = m[x][j] + 1
-								has.append(x)
-								break
-						print "m = "
-						print "\n"	
-						for l in m:
-							print l
-						if (rowHead > rowTail) & (rowHead != -1) & (rowTail != -1):
-							return False
-			if m_max1 == 0:	
-				#print "here"
-				if(j == 0):
-					if numCol == 1:
-						return False
-					else:
-						for k in range(j+1,numCol):
-							#print k
-							j = k
-							m_max2 = max([m[i][k] for i in range(numRow)])
-							if m_max2 != 0:	
-								if m[0][j] == m_max2:
-									m_max1 = m_max2
-									break
-								else:
-									return False
-							if k == (numCol-1):
-								return False
-				else:
-					flagHead = j-1
-					m_max2 = max([m[i][flagHead] for i in range(numRow)])
-					m_max3 = -1
-					if m[numRow-1][flagHead] == m_max2 :
-						break #khong can de quy check tai vi tri nay ( vi da chay truoc do)
-					else:
-						flagTail = -1
-						for k in range(j+1,numCol):
-							j = k
-							m_max3 = max([m[i][k] for i in range(numRow)])
-							if m_max3 != 0:
-								flagTail = k
-								break
-						if flagTail == -1: #Check Final Row
-							return False	
-						else: #Check Head and Tail are consecutive siblings
-							for x in range(numRow):
-								if ((m[x][flagHead] == m_max2) & (m[x+1][flagTail] != m_max3)) | ((m[x][flagHead] != m_max2) and (m[x+1][flagTail] == m_max3)):
-									return False
-								elif ((m[x][flagHead] == m_max2) & (m[x+1][flagTail] == m_max3)):
-									break
-							m_max1 = m_max3
-			#print "m = ",m
-			#print "\n"
-			for i in range(numRow):
-				if (m[i][j] == m_max1) & (m_max1 != 0):
-					if len(w[i][j][1]) != 0:
-						check = checkInsert(w[i][j][1])
-						if check == False:
-							return False
-					else: #m[i][j] == 1:
-						break
-			j = j + 1
-								
-	else:	# numCol > numRow
-		i = 0
-		has = []
-		while (i < numRow):
-			m_max1 = max(m[i])
-			#print "m_max1 = ",m_max1
-			if (m_max1 != 0) & (i != 0) :
-				if i == 0:
-					for x in range(numCol):
-						if m[i][x] == m_max1:
-							has.append(x)
-							m[i][x] = m[i][x] + 1
-							break
-				else:
-					#kiem tra max truoc do co theo thu tu hay khong
-					m_max0 = max(m[i-1])
-					if m_max0 != 0:
-						#print "here"
-						#print "i = ",i
-						rowHead = -1
-						rowTail = -1
-						for x in range(numCol):
-							if m[i-1][x] == m_max0:
-								rowHead = x
-								break
-						for x in range(numCol):
-							if (m[i][x] == m_max1) & (has.count(x) == 0):
-								rowTail = x
-								m[i][x] = m[i][x] + 1
-								break
-						if (rowHead > rowTail) & (rowHead != -1) & (rowTail != -1):
-							return False
-			if m_max1 == 0:
-				if(i == 0):
-					if numRow == 1:
-						return False
-					else:
-						for k in range(i+1,numRow):
-							#print k
-							i = k
-							m_max2 = max(m[i])
-							if m_max2 != 0:	
-								if m[i][0] == m_max2:
-									m_max1 = m_max2
-									break
-								else:
-									return False
-							if k == (numRow-1):
-								return False
-				else:
-					flagHead = i-1
-					m_max2 = max(m[flagHead])
-					m_max3 = -1
-					if m[flagHead][numCol-1] == m_max2 :
-						break #khong can de quy check tai vi tri nay ( vi da chay truoc do)
-					else:
-						flagTail = -1
-						for k in range(i+1,numRow):
-							i = k
-							m_max3 = max(m[i])
-							if m_max3 != 0:
-								flagTail = k
-								break
-						if flagTail == -1: #Check Final Row
-							#print "m = ",m
-							return False	
-						else: #Check Head and Tail are consecutive siblings
-							for x in range(numCol):
-								if ((m[flagHead][x] == m_max2) & (m[flagTail][x+1] != m_max3)) | ((m[flagHead][x] != m_max2) and (m[flagTail][x+1] == m_max3)):
-									#print "m = ",m
-									return False
-								elif ((m[flagHead][x] == m_max2) & (m[flagTail][x+1] == m_max3)):
-									break
-							m_max1 = m_max3
-			for j in range(numCol):
-				#print "j = ",j
-				if (m[i][j] == m_max1) & (m_max1 != 0):
-					if len(w[i][j][1]) != 0:
-						#print len(w[i][j][1])
-						#print "w[%d][%d][1] = "%(i,j)+str(w[i][j][1])
-						check = checkInsert(w[i][j][1])
-						if check == False:
-							#print "m = ",m
-							return False
-					else: #m[i][j] == 1:
-						break
-			i = i + 1
-	
-	return True
+def GetPreMatch(matchList, current):
+    prematch = -1
+    for x in reversed(range(0, current)):
+        if matchList[x] != -1:
+            prematch = x
+            break
+    return prematch
+
+def InsertIntoSeed(w, node1, node2):
+    m = [[x for x, y in row] for row in w]   
+    
+    seed = node1.cloneNode(False)
+    numRow = len(m)
+    numCol = len(m[0])
+    
+    if numCol < numRow:
+        match = [-1 for i in range(0, numCol)]
+        for i in range(0, numCol):
+            m_max = max([m[j][i] for j in range(numRow)])
+            if m_max == 0 :
+                continue
+            for j in range(0, numRow):
+                if m[j][i] == m_max:
+                    if j in match:
+                        continue
+                    else:
+                        match[i] = j                    
+                    p = GetPreMatch(match, i)
+                    if p != -1 and match[p] >= j:
+                        return None
+                    else:
+                        if p == -1:
+                            matchRow = -1
+                        else:
+                            matchRow = match[p]
+                        if i == (p+1):
+                            for x in range(matchRow+1, j):
+                                node1.childNodes[x].setAttribute("key","?")
+                                seed.appendChild(node1.childNodes[x].cloneNode(True))                                
+                        elif j == (matchRow+1):
+                            for x in range(p+1, i):
+                                node2.childNodes[x].setAttribute("key","?")
+                                seed.appendChild(node2.childNodes[x].cloneNode(True))
+                        else:
+                            return None
+                    if len(w[j][i][1]) == 0:   
+                        seed.appendChild(node1.childNodes[j].cloneNode(False))
+                    else:                        
+                        child = InsertIntoSeed(w[j][i][1], node1.childNodes[j], node2.childNodes[i])
+                        if child:
+                            child.toprettyxml()
+                            seed.appendChild(child)
+                        else:
+                            return None
+                    break
+        lastMatch = GetPreMatch(match, numCol)
+        if lastMatch != -1:
+            if (lastMatch+1) == numCol:
+                for x in range(match[lastMatch]+1, numRow):
+                    node1.childNodes[x].setAttribute("key","?")
+                    seed.appendChild(node1.childNodes[x].cloneNode(True)) 
+            elif (match[lastMatch]+1) == numRow:
+                for x in range(lastMatch+1, numCol):
+                    node2.childNodes[x].setAttribute("key","?")
+                    seed.appendChild(node2.childNodes[x].cloneNode(True))
+            else:
+                return None 
+        else:
+            for x in range(numRow):
+                node1.childNodes[x].setAttribute("key","?")
+                seed.appendChild(node1.childNodes[x].cloneNode(True))
+    else:
+        match = [-1 for i in range(0, numRow)]
+        for i in range(0, numRow):
+            m_max = max(m[i])
+            if m_max == 0:
+                continue
+            for j in range(0, numCol):
+                if m[i][j] == m_max:
+                    if j in match:
+                        continue
+                    else:
+                        match[i] = j
+                    p = GetPreMatch(match, i)                        
+                    if p != -1 and match[p] >= j:
+                        return None
+                    else:
+                        if p == -1:
+                            matchCol = -1
+                        else:
+                            matchCol = match[p]
+                        if i == (p+1):
+                            for x in range(matchCol+1, j):
+                                node2.childNodes[x].setAttribute("key","?")
+                                seed.appendChild(node2.childNodes[x].cloneNode(True))                                
+                        elif j == (matchCol+1):
+                            for x in range(p+1, i):
+                                node1.childNodes[x].setAttribute("key","?")
+                                seed.appendChild(node1.childNodes[x].cloneNode(True))
+                        else:
+                            return None
+                    if len(w[i][j][1]) == 0:
+                        seed.appendChild(node1.childNodes[i].cloneNode(False))
+                    else:
+                        child = InsertIntoSeed(w[i][j][1], node1.childNodes[i], node2.childNodes[j])
+                        if child:
+                            child.toprettyxml()
+                            seed.appendChild(child)
+                        else:
+                            return None
+                    break        
+        lastMatch = GetPreMatch(match, numRow)
+        if lastMatch != -1:
+            if (lastMatch+1) == numRow:
+                for x in range(match[lastMatch]+1, numCol):
+                    node2.childNodes[x].setAttribute("key","?")
+                    seed.appendChild(node2.childNodes[x].cloneNode(True)) 
+            elif (match[lastMatch]+1) == numCol:
+                for x in range(lastMatch+1, numRow):
+                    node1.childNodes[x].setAttribute("key","?")
+                    seed.appendChild(node1.childNodes[x].cloneNode(True))
+            else:
+                return None
+        else:
+            for x in range(numCol):
+                node2.childNodes[x].setAttribute("key","option")
+                seed.appendChild(node2.childNodes[x].cloneNode(True))
+    return seed
