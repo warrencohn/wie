@@ -1,0 +1,15 @@
+http://thodia.vn/Websites/SearchResultHotspot.aspx?CategoryID=0&locationID=164
+
+locationID=164	Ho Chi Minh
+
+CategoryID > listkd
+(Ẩm thực > Ăn sáng, ăn tối, ăn trưa....)
+http://thodia.vn/Websites/SearchResultHotspot.aspx?CategoryID=1&listkd=-51
+http://thodia.vn/Websites/SearchResultHotspot.aspx?locationID=1&CategoryID=0&kd=51
+
+
+http://thodia.vn/Websites/SearchResultHotspot.aspx?CategoryID=1&kd=101
+
+
+
+
