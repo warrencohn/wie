@@ -98,7 +98,7 @@ def Match(Node,t):
     return GenRecordPattern(root)            
 
 def GenRecordPattern(Node):
-    for subNode in Node.chilNodes:
+    pass
         
     
 def TreeMatch(Node1,Node2):
