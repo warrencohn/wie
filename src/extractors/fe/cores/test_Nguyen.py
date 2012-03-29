@@ -9,7 +9,7 @@ def cleanString(html):
 	#html = html.replace(u"\u00A0", " ")
 	# other way: 
 	html = html.replace("\xc2\xa0", "")
-	
+	html = html.replace('&nbsp;','')
 	html = html.replace('\n', '')
 	html = html.replace('\n\r', '')
 	html = html.replace('\t', '')
