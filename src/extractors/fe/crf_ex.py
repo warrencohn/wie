@@ -10,30 +10,12 @@
 #train the model using the provided trainers, and how to apply the trained 
 #model to some data.
 
-from numpy import array
+
 from monte.models.crf import ChainCrfLinear #ready-to-use models are in 
                                             #monte.models
 from monte import train #trainers are in monte.train
 from cores.features import *
-
-def createInput(filename):
-	f = open(filename, 'r')
-	input = []
-	for line in f.readlines():
-		p = line[:-1]
-		input.append([numCapitalWords(p), numComma(p), pattern(p), freqWord(p), numDigits(p), numDigitsMax(p)])
-	return array(input)
-
-def createTrainInput(filename):
-	f = open(filename, 'r')
-	input = []
-	output = []
-	for line in f.readlines():
-		p = line[:-1].split('\t')
-		print p
-		output.append(int(p[0]))
-		input.append([numCapitalWords(p[1]), numComma(p[1]), pattern(p[1]), freqWord(p[1]), numDigits(p[1]), numDigitsMax(p[1])])
-	return (array(input), array(output))
+import pickle 
 
 #Make a linear-chain CRF:
 mycrf = ChainCrfLinear(6,9)
@@ -62,6 +44,11 @@ for i in range(20):
 #Apply to some stupid test data:
 #testInStr = ['+84083796321', '34356', '(84) 058 3645726', '08 3970765', '08386458', '453', '0343556765', '03435567656', '54 54 979529']
 #testinputs = array([[numDigits(s), numDigitsMax(s)] for s in testInStr])
+
+file = open('crf.obj', 'w') 
+pickle.dump(mycrf, file) 
+
 predictions = mycrf.viterbi(createInput('cores/out1/0.out'))
+
 print predictions
 

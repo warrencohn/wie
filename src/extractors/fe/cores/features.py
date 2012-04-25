@@ -1,6 +1,26 @@
 ﻿# coding=utf-8
+from numpy import array
 from urlparse import urlsplit
 import re
+
+def createInput(filename):
+	f = open(filename, 'r')
+	input = []
+	for line in f.readlines():
+		p = line[:-1]
+		input.append([numCapitalWords(p), numComma(p), pattern(p), freqWord(p), numDigits(p), numDigitsMax(p)])
+	return array(input)
+
+def createTrainInput(filename):
+	f = open(filename, 'r')
+	input = []
+	output = []
+	for line in f.readlines():
+		p = line[:-1].split('\t')
+		print p
+		output.append(int(p[0]))
+		input.append([numCapitalWords(p[1]), numComma(p[1]), pattern(p[1]), freqWord(p[1]), numDigits(p[1]), numDigitsMax(p[1])])
+	return (array(input), array(output))
 
 # return number of capitalized-first-character words 
 def numCapitalWords(string):
