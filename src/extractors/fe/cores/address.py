@@ -1,57 +1,50 @@
-import pymssql
+﻿# http://www.yellowpages.vn/ 
+#str = "37A Phan Xich Long, P. 3, Q. Phu Nhuan,Tp. Ho Chi Minh"
+str = "1147 Bình Quới, Phường 28, Quận Bình Thạnh - Hồ Chí Minh"
 
-conn = pymssql.connect(host='(local)', user='sa', password='sa', database='BanDoSG')
-cur = conn.cursor()
-cur.execute('SELECT * FROM ConDuong')
-street = []
-for row in cur:
-    #print row[3]
-	street.append(row[3].lower())
-
-#print street
-conn.close()
-
-str = "615 Nguyen Kiem, P.3, Q.Go Vap, Tp.Ho Chi Minh"
-str = str.lower()
+#str = str.lower()
 str = str.replace(',', '')
-str = str.replace("duong",'')
-str = str.replace("tp.",'')
+str = str.replace("Tp.",'')
 
-#street = ["ly thuong kiet","nguyen dinh chieu"]
-ward = ["p.","f.","p","f","phuong"]
-district = ["q.","quan"]
-city = ["ho chi minh"]
+#street = ["ly thuong kiet","nguyen dinh chieu","phan xich long","tran quoc thao"]
+ward = ["P.","Phường"]
+district = ["Q.","Quận"]
+city = ["Hồ Chí Minh"]
 
-indexStreetHead = 0
-strt = ''
-for i in street :
-	indexStreetHead = str.find(i)
-	if indexStreetHead != -1 :
-		strt = i
-		break	
+#1
+#iStreet = -1
+#nameStreet = ''
+#for i in street :
+#	iStreet = str.find(i)
+#	if iStreet != -1 :
+#		nameStreet = i
+#		break	
 
-indexWardTail = 0
+#2
+iStreet2 = str.find(' ')
+
+iWard1 = -1
+iWard2 = -1
 for i in ward :
-	indexWard = str.find(i)
-	if indexWard != -1 :
-		indexWardTail = indexWard + len(i)
+	iWard1 = str.find(i)
+	if iWard1 != -1 :
+		iWard2 = iWard1 + len(i)
 		break
 
-indexDistrictHead = 0
-indexDistrictTail = 0
+iDistrict1 = -1
+iDistrict2 = -1
 for i in district :
-	indexDistrictHead = str.find(i)
-	if indexDistrictHead != -1 :
-		indexDistrictTail = indexDistrictHead + len(i)
+	iDistrict1 = str.find(i)
+	if iDistrict1 != -1 :
+		iDistrict2 = iDistrict1 + len(i)
 		break
 
-indexCityHead = 0
-indexCityTail = 0
-ct = 0
+iCity = -1
+nameCity = ''
 for i in city :
-	indexCityHead = str.find(i)
-	if indexCityHead != -1 :
-		ct = i
+	iCity = str.find(i)
+	if iCity != -1 :
+		nameCity = i
 		break
 sn1 = ''
 sn2 = ''
@@ -59,27 +52,21 @@ d = ''
 p = ''
 q = ''
 c = ''
-if(indexStreetHead != -1 and indexWard != -1 and indexDistrictHead != -1 and indexCityHead != -1 ) :
-	sn1 = str[:indexStreetHead].strip()
-	sn2 = str[:indexStreetHead].strip()
-	d = strt
-	p = str[indexWardTail:indexDistrictHead].strip()
-	q = str[indexDistrictTail:indexCityHead].strip()
-	c = ct
-else :
-	print "here"
+if iStreet2 == -1:
+	print "Khong tim thay ten duong"
+elif(iWard1 != -1 and iDistrict1 != -1 and iCity != -1 ) :
+	#sn = str[:iStreet].strip()
+	sn = str[:iStreet2].strip()
+	#d = nameStreet
+	d = str[iStreet2:iWard1].strip()
+	p = str[iWard2:iDistrict1].strip()
+	q = str[iDistrict2:iCity].replace('-', '').strip()
+	c = nameCity
+	print "So nha      : " + sn
+	print "Duong       : " + d
+	print "Phuong      : " + p
+	print "Quan        : " + q
+	print "Tinh/Thanh  : " + c
+else:
+	print "error"
 	
-#print "So nha1      : " + sn1
-#print "So nha2      : " + sn2
-#print "Duong       : " + d
-#print "Phuong      : " + p
-#print "Quan        : " + q
-#print "Tinh/Thanh  : " + c
-
-#r'.\SQLEXPRESS
-conn = pymssql.connect(host='(local)', user='sa', password='sa', database='Address')
-cur = conn.cursor()
-#cur.executemany("INSERT INTO diachi VALUES(%s)", [ 'aaa', 'bbb' ])
-cur.executemany("INSERT INTO diachi VALUES(%s, %s, %s, %s, %s, %s)",[(sn1,sn2,d,p,q,c)])
-conn.commit()
-conn.close()
