@@ -1,72 +1,61 @@
 ﻿# http://www.yellowpages.vn/ 
 #str = "37A Phan Xich Long, P. 3, Q. Phu Nhuan,Tp. Ho Chi Minh"
-str = "1147 Bình Quới, Phường 28, Quận Bình Thạnh - Hồ Chí Minh"
+#str = "1147 Bình Quới, Phường 28, Quận Bình Thạnh - Hồ Chí Minh"
+#str = "Phòng 107, 232 (10) Đường 3 Tháng 2, P. 12, Q. 10,"
+#str = "Phong 107, 232 (10) Duong 3 Thang 2, P.12, Q.10,"
+#str = "Phòng 1205, Tầng12, Tòa Nhà Mê Linh Point, 2 Ngô Đức Kế, P. Bến Nghé, Q. 1,"
+str = "Phong 1205, Tang 12, Toa Nha Me Linh Point, 232/2 Duong 3 Thang 2, P.Ben Nghe, Q. 1,"
 
-#str = str.lower()
-str = str.replace(',', '')
-str = str.replace("Tp.",'')
+def checkInt(s):
+    try: 
+        int(s)
+        return True
+    except ValueError:
+        return False
 
-#street = ["ly thuong kiet","nguyen dinh chieu","phan xich long","tran quoc thao"]
-ward = ["P.","Phường"]
-district = ["Q.","Quận"]
-city = ["Hồ Chí Minh"]
-
-#1
-#iStreet = -1
-#nameStreet = ''
-#for i in street :
-#	iStreet = str.find(i)
-#	if iStreet != -1 :
-#		nameStreet = i
-#		break	
-
-#2
-iStreet2 = str.find(' ')
-
-iWard1 = -1
-iWard2 = -1
-for i in ward :
-	iWard1 = str.find(i)
-	if iWard1 != -1 :
-		iWard2 = iWard1 + len(i)
-		break
-
-iDistrict1 = -1
-iDistrict2 = -1
-for i in district :
-	iDistrict1 = str.find(i)
-	if iDistrict1 != -1 :
-		iDistrict2 = iDistrict1 + len(i)
-		break
-
-iCity = -1
-nameCity = ''
-for i in city :
-	iCity = str.find(i)
-	if iCity != -1 :
-		nameCity = i
-		break
-sn1 = ''
-sn2 = ''
-d = ''
-p = ''
-q = ''
-c = ''
-if iStreet2 == -1:
-	print "Khong tim thay ten duong"
-elif(iWard1 != -1 and iDistrict1 != -1 and iCity != -1 ) :
-	#sn = str[:iStreet].strip()
-	sn = str[:iStreet2].strip()
-	#d = nameStreet
-	d = str[iStreet2:iWard1].strip()
-	p = str[iWard2:iDistrict1].strip()
-	q = str[iDistrict2:iCity].replace('-', '').strip()
-	c = nameCity
-	print "So nha      : " + sn
-	print "Duong       : " + d
-	print "Phuong      : " + p
-	print "Quan        : " + q
-	print "Tinh/Thanh  : " + c
-else:
-	print "error"
+c1 = ""
+q1 = ""
+p1 = ""
+d1 = ""
+sn1 = ""
+dt = ""
+str1 =  str.rsplit(',',4)
+str1.reverse()
+for i in range(len(str1)):
+	if i == 0:
+		if str1[i].strip() == '':
+			c1 = "Ho Chi Minh"
+		else:
+			c1 = str1[i].strip()
+	elif i == 1:
+		q1 = str1[i].replace("Q.",'').strip()
+	elif i == 2:
+		p1 = str1[i].replace("P.",'').strip()
+	elif i == 3:
+		if str1[i].find("Duong") != -1:
+			snd = str1[i].split("Duong",1)
+			sn1 = snd[0].strip()
+			d1 = snd[1].strip()
+		else:
+			snd = str1[i].strip().split(" ",1)
+			if (snd[0].find('\\') != -1) or (snd[0].find('/') != -1):
+				sn1 = snd[0].strip()
+				d1 = snd[1].strip()
+			else:
+				if checkInt(snd[0]):
+					sn1 = snd[0].strip()
+					d1 = snd[1].strip()
+				else:
+					sn1 = ''
+					d1 = str1[i].strip()
+	elif i == 4:
+		dt = str1[i].strip()
+		
+print c1
+print q1
+print p1
+print d1
+print sn1
+print dt
+			
 	
