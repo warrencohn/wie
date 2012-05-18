@@ -3,10 +3,11 @@
 #str = "37A Phan Xich Long, P. 3, Q. Phu Nhuan,Tp. Ho Chi Minh"
 #str = "1147 Bình Quới, Phường 28, Quận Bình Thạnh - Hồ Chí Minh"
 #str = "Phòng 107, 232 (10) Đường 3 Tháng 2, P. 12, Q. 10,"
-#str = "Phong 107, 232 (10) Duong 3 Thang 2, P.12, Q.10,"
+#str = u"Phong 107,Đường 3 Thang 2, P.12, Q.10,"
 #str = u"Phòng 1205, Tầng12, Tòa Nhà Mê Linh Point, 2 Ngô Đức Kế, Q. 1,"
-#str = "Phong 1205, Tang 12, Toa Nha Me Linh Point, 232 Duong 3 Thang 2, P.Ben Nghe, Q. 1,"
-str = u"2 Ngô Đức Kế, Quận 1,"
+str = u"11G4 Khu Dân Cư Tân Quy Đông, Đường Nguyễn Thị Thập, Phường Tân Phong, Quận 7"
+#str = u"83 Nguyễn Cư Trinh, Quận 1,"
+#215 Tổ 59,Khu Phố 4, Phường Tân Chánh Hiệp, Quận 12,Đường
 
 def checkInt(s):
     try: 
@@ -16,6 +17,8 @@ def checkInt(s):
         return False	
 
 def checkStr(str):
+	if str[len(str)-1] != ',':
+		str = str + ','
 	str1 =  str.rsplit(',',4)
 	str1.reverse()
 	l = []
@@ -26,17 +29,18 @@ def checkStr(str):
 			else:
 				 l.append(str1[i].strip())
 		elif i == 1:
-			l.append(str1[i].replace("Q.",'').replace(u"Quận",'').strip())
+			l.append(str1[i].replace(u"Q.",'').replace(u"Quận",'').strip())
 		elif i == 2:
-			l.append(str1[i].replace("P.",'').replace(u"Phường",'').strip())
+			l.append(str1[i].replace(u"P.",'').replace(u"Phường",'').strip())
 		elif i == 3:
-			if str1[i].find(u"Đường") != -1:
-				snd = str1[i].split(u"Đường",1)
+			str1[i]=str1[i].replace(u"Số",'')
+			if str1[i].find(u"Đường") != -1:
+				snd = str1[i].split(u"Đường",1)
 				l.append(snd[1].strip())
 				l.append(snd[0].strip())
 			else:
 				snd = str1[i].strip().split(" ",1)
-				if (snd[0].find('\\') != -1) or (snd[0].find('/') != -1) or (snd[0].find('-') != -1):
+				if (snd[0].find('\\') != -1) or (snd[0].find('/') != -1) or (snd[0].find('-') != -1) :
 					l.append(snd[1].strip())
 					l.append(snd[0].strip())
 				else:
@@ -50,4 +54,4 @@ def checkStr(str):
 			l.append(str1[i].strip())
 	return l
 			
-print checkStr(str)
+print checkStr(unicode(str))
