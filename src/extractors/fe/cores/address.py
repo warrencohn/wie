@@ -5,9 +5,9 @@
 #str = "Phòng 107, 232 (10) Đường 3 Tháng 2, P. 12, Q. 10,"
 #str = u"Phong 107,Đường 3 Thang 2, P.12, Q.10,"
 #str = u"Phòng 1205, Tầng12, Tòa Nhà Mê Linh Point, 2 Ngô Đức Kế, Q. 1,"
-str = u"11G4 Khu Dân Cư Tân Quy Đông, Đường Nguyễn Thị Thập,  Quận 7"
-#str = u"83 Nguyễn Cư Trinh, Quận 1,"
-#215 Tổ 59,Khu Phố 4, Phường Tân Chánh Hiệp, Quận 12,Đường
+#str = "Phong 1205, Tang 12, Toa Nha Me Linh Point, 232/2 Duong 3 Thang 2, P.Ben Nghe, Q. 1,"
+#str = u'125 Nguyễn Cửu Vân - P.17, Q.Bình Thạnh'
+ADDR_NAME = ['ThanhPho', 'Quan', 'Phuong', 'Duong', 'SoNha', 'ChiTietDiaChi']
 
 def checkInt(s):
     try: 
@@ -37,8 +37,6 @@ def checkStr(str):
 			if str1[i].find(u"Phường") != -1 or str1[i].find(u"P.") != -1:
 				l.append(str1[i].replace(u"P.",'').replace(u"Phường",'').strip())
 			else:
-				print i
-				print 'here'
 				l.append('')
 				flag = 1
 				continue
@@ -65,4 +63,4 @@ def checkStr(str):
 		i = i + 1
 	return l
 			
-print checkStr(unicode(str))
+#print checkStr(str)
