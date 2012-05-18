@@ -4,8 +4,9 @@
 #str = "1147 Bình Quới, Phường 28, Quận Bình Thạnh - Hồ Chí Minh"
 #str = "Phòng 107, 232 (10) Đường 3 Tháng 2, P. 12, Q. 10,"
 #str = "Phong 107, 232 (10) Duong 3 Thang 2, P.12, Q.10,"
-str = u"Phòng 1205, Tầng12, Tòa Nhà Mê Linh Point, 2 Ngô Đức Kế, Q. 1,"
+#str = u"Phòng 1205, Tầng12, Tòa Nhà Mê Linh Point, 2 Ngô Đức Kế, Q. 1,"
 #str = "Phong 1205, Tang 12, Toa Nha Me Linh Point, 232 Duong 3 Thang 2, P.Ben Nghe, Q. 1,"
+str = u"2 Ngô Đức Kế, Quận 1,"
 
 def checkInt(s):
     try: 
@@ -25,9 +26,9 @@ def checkStr(str):
 			else:
 				 l.append(str1[i].strip())
 		elif i == 1:
-			l.append(str1[i].replace("Q.",'').strip())
+			l.append(str1[i].replace("Q.",'').replace(u"Quận",'').strip())
 		elif i == 2:
-			l.append(str1[i].replace("P.",'').strip())
+			l.append(str1[i].replace("P.",'').replace(u"Phường",'').strip())
 		elif i == 3:
 			if str1[i].find(u"Đường") != -1:
 				snd = str1[i].split(u"Đường",1)
