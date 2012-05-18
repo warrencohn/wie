@@ -5,7 +5,7 @@
 #str = "Phòng 107, 232 (10) Đường 3 Tháng 2, P. 12, Q. 10,"
 #str = u"Phong 107,Đường 3 Thang 2, P.12, Q.10,"
 #str = u"Phòng 1205, Tầng12, Tòa Nhà Mê Linh Point, 2 Ngô Đức Kế, Q. 1,"
-str = u"11G4 Khu Dân Cư Tân Quy Đông, Đường Nguyễn Thị Thập, Phường Tân Phong, Quận 7"
+str = u"11G4 Khu Dân Cư Tân Quy Đông, Đường Nguyễn Thị Thập,  Quận 7"
 #str = u"83 Nguyễn Cư Trinh, Quận 1,"
 #215 Tổ 59,Khu Phố 4, Phường Tân Chánh Hiệp, Quận 12,Đường
 
@@ -22,7 +22,10 @@ def checkStr(str):
 	str1 =  str.rsplit(',',4)
 	str1.reverse()
 	l = []
-	for i in range(len(str1)):
+	flag = 0
+	#for i in range(len(str1)):
+	i = 0
+	while i < len(str1):
 		if i == 0:
 			if str1[i].strip() == '':
 				 l.append(u"Hồ Chí Minh")
@@ -30,9 +33,16 @@ def checkStr(str):
 				 l.append(str1[i].strip())
 		elif i == 1:
 			l.append(str1[i].replace(u"Q.",'').replace(u"Quận",'').strip())
-		elif i == 2:
-			l.append(str1[i].replace(u"P.",'').replace(u"Phường",'').strip())
-		elif i == 3:
+		elif i == 2 and flag == 0:
+			if str1[i].find(u"Phường") != -1 or str1[i].find(u"P.") != -1:
+				l.append(str1[i].replace(u"P.",'').replace(u"Phường",'').strip())
+			else:
+				print i
+				print 'here'
+				l.append('')
+				flag = 1
+				continue
+		elif (i == 3 and flag == 0) or (i == 2 and flag == 1):
 			str1[i]=str1[i].replace(u"Số",'')
 			if str1[i].find(u"Đường") != -1:
 				snd = str1[i].split(u"Đường",1)
@@ -50,8 +60,9 @@ def checkStr(str):
 					else:
 						l.append(str1[i].strip())
 						l.append('')
-		elif i == 4:
+		elif (i == 4 and flag == 0) or (i == 3 and flag == 1):
 			l.append(str1[i].strip())
+		i = i + 1
 	return l
 			
 print checkStr(unicode(str))
