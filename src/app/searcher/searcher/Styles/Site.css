@@ -88,10 +88,10 @@ first child of the left and right table columns */
 
 .page
 {
-    width: 960px;
+    width: 100%;
     background-color: #fff;
-    margin: 20px auto 0px auto;
-    border: 1px solid #496077;
+    margin: 0px auto 0px auto;
+    /*border: 1px solid #496077;*/
 }
 
 .header
@@ -118,7 +118,7 @@ first child of the left and right table columns */
 {
     padding: 0px 12px;
     margin: 12px 8px 8px 8px;
-    min-height: 420px;
+    min-height: 620px;
 }
 
 .leftCol
@@ -150,7 +150,8 @@ div.hideSkiplink
 
 div.menu
 {
-    padding: 4px 0px 4px 8px;
+    padding: 14px 0px 4px 18px;
+    display:inline;
 }
 
 div.menu ul
@@ -246,17 +247,21 @@ div.accountInfo
 
 .title
 {
-    display: block;
+    display: inline;
     float: left;
     text-align: left;
     width: auto;
+    
 }
 
 .loginDisplay
 {
     font-size: 1.1em;
-    display: block;
-    text-align: right;
+    display: inline;
+    
+    margin:0px;
+    text-align:right;
+    float:right;
     padding: 10px;
     color: White;
 }
@@ -292,3 +297,69 @@ div.accountInfo
     text-align: right;
     padding-right: 10px;
 }
+
+.sidebar
+{
+    width:370px; 
+    height:100%;   
+}
+.map
+{
+    width:630px;
+    margin-left:10px;
+    height:600px;
+    padding: 0;
+}
+.map, .sidebar
+{
+    float:left;    
+}
+.resultBox 
+{
+    height:400px;
+    overflow-y:scroll;
+    overflow-x:hidden;
+}
+
+.result
+{
+    background: url("images/bg-resultitem-bottom.png") repeat-x 0 bottom #F3F3F3;   
+    padding: 9px 9px 9px 12px;
+    -webkit-box-shadow:1px 0 0 0 rgba(255, 255, 255, 0.15) inset,0 1px 0 0 rgba(255, 255, 255, 0.4) inset,0 -1px 0 0 rgba(255, 255, 255, 0.1) inset,-1px 0 0 0 rgba(255, 255, 255, 0.15) inset;
+    margin-top:2px; 
+    margin-right:2px;
+    position:relative;
+}
+
+.result .rName
+{
+    font-size: 12px;
+    font-weight:bold;   
+}
+.rPhone
+{
+    
+}
+
+.rAddr
+{
+    
+}
+
+.rDetail
+{
+    position:absolute;
+    top:10px;
+    right:10px;
+    width: 19px;
+    height: 19px;
+    display: block;
+    background: url("images/resultdetail.png") no-repeat;
+    cursor:pointer;
+}
+
+.searchBox
+{
+    
+}
+
