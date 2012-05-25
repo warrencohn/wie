@@ -1,4 +1,5 @@
 var map;
+var infoWindow;
 
 function getLatLngFromString(str) {
     var temp = str.split(',');
@@ -9,14 +10,18 @@ function getLatLngFromString(str) {
 function initialize() {
     var myOptions = {
         center: new google.maps.LatLng(10.772308, 106.657812),
-        zoom: 18,
+        zoom: 16,
         mapTypeId: google.maps.MapTypeId.ROADMAP
     };
     map = new google.maps.Map(document.getElementById('map_canvas'),
             myOptions);
     //alert("X");
+    
+    infowindow = new google.maps.InfoWindow();
 
-    drawAllMarker();
+    var pos = drawAllMarker();
+
+    map.setCenter(pos);
 }
 
 function setWindowSize() {
@@ -39,10 +44,11 @@ function setWindowSize() {
 
 function drawAllMarker() {
     var counter = 0;
+    var pos;
     $('.result').each(function () {
         var latLng = $(this).find('.rLocation').html();
         counter++;
-        var pos = getLatLngFromString(latLng);
+        pos = getLatLngFromString(latLng);
 
         marker = new google.maps.Marker({
             position: pos,
@@ -52,6 +58,8 @@ function drawAllMarker() {
 
 
     });
+
+    return pos;
 }
 
 $(document).ready(function () {
@@ -72,7 +80,31 @@ $(document).ready(function () {
 
         var latLng = $(this).find('.rLocation').html();
         //alert(latLng);
-        map.panTo(getLatLngFromString(latLng));
+        var pos = getLatLngFromString(latLng);
+
+        // Replace our Info Window's content and position
+
+
+        var iw = $("#infowindow");
+        console.log(iw);
+        iw.find('rName').html($(this).find('rName'));
+        iw.find('rAddr').html($(this).find('rAddr'));
+        iw.find('rPhone').html($(this).find('rPhone'));
+        iw.find('rEmail').html($(this).find('rEmail'));
+        iw.find('rFax').html($(this).find('rFax'));
+        iw.find('rWebsite').html($(this).find('rWebsite'));
+        iw.find('rBiz').html($(this).find('rBiz'));
+
+        console.log(iw);
+
+        infowindow.setContent(iw.html());
+        infowindow.setPosition(pos);
+
+        infowindow.open(map);
+
+        map.panTo(pos);
+
+
     });
 });
 

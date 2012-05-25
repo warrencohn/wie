@@ -17,68 +17,17 @@
             </div>
             Kết quả tìm kiếm:
             <div class="resultBox">
-                <div class="result">
-                    <div class="rName">1. Tên công  ty</div>
-                    <div class="rAddr">497 Hòa Hảo, P7, Q10, Tp. HCM</div>
-                    <div class="rPhone">0168.991.7713</div>
-                    <div class="rDetail"></div>
-                    <div class="rLocation">10.759734,106.661321</div>
-                </div>
-                <div class="result">
-                    <div class="rName">2. Tên công  ty</div>
-                    <div class="rAddr">497 Hòa Hảo, P7, Q10, Tp. HCM</div>
-                    <div class="rPhone">0168.991.7713</div>
-                    <div class="rDetail"></div>
-                    <div class="rLocation">10.759734,106.661321</div>
-                </div>
-                <div class="result">
-                    <div class="rName">3. Tên công  ty</div>
-                    <div class="rAddr">497 Hòa Hảo, P7, Q10, Tp. HCM</div>
-                    <div class="rPhone">0168.991.7713</div>
-                    <div class="rDetail"></div>
-                    <div class="rLocation">10.759734,106.661321</div>
-                </div>
-                <div class="result">
-                    <div class="rName">4. Tên công  ty</div>
-                    <div class="rAddr">497 Hòa Hảo, P7, Q10, Tp. HCM</div>
-                    <div class="rPhone">0168.991.7713</div>
-                    <div class="rDetail"></div>
-                    <div class="rLocation">10.759734,106.661321</div>
-                </div>
-                <div class="result">
-                    <div class="rName">5. Tên công  ty</div>
-                    <div class="rAddr">497 Hòa Hảo, P7, Q10, Tp. HCM</div>
-                    <div class="rPhone">0168.991.7713</div>
-                    <div class="rDetail"></div>
-                    <div class="rLocation">10.759734,106.661321</div>
-                </div>
-                <div class="result">
-                    <div class="rName">6. Tên công  ty</div>
-                    <div class="rAddr">497 Hòa Hảo, P7, Q10, Tp. HCM</div>
-                    <div class="rPhone">0168.991.7713</div>
-                    <div class="rDetail"></div>
-                    <div class="rLocation">10.759734,106.661321</div>
-                </div>
-                <div class="result">
-                    <div class="rName">7. Tên công  ty</div>
-                    <div class="rAddr">497 Hòa Hảo, P7, Q10, Tp. HCM</div>
-                    <div class="rPhone">0168.991.7713</div>
-                    <div class="rDetail"></div>
-                    <div class="rLocation">10.759734,106.661321</div>
-                </div>
-                <div class="result">
-                    <div class="rName">8. Tên công  ty</div>
+                                 <div class="result">
+                    <div class="rName">10. Tên công  ty</div>
                     <div class="rAddr">497 Hòa Hảo, P7, Q10, Tp. HCM</div>
                     <div class="rPhone">0168.991.7713</div>
                     <div class="rLocation">10.759734,106.661321</div>
                     <div class="rDetail"></div>
-                </div>
-                <div class="result">
-                    <div class="rName">9. Tên công  ty</div>
-                    <div class="rAddr">497 Hòa Hảo, P7, Q10, Tp. HCM</div>
-                    <div class="rPhone">0168.991.7713</div>
-                    <div class="rLocation">10.759734,106.661321</div>
-                    <div class="rDetail"></div>
+                    <!-- display none -->
+                    <div class="rFax">0168.991.7713</div>
+                    <div class="rEmail">hungvinhbk@gmail.com</div>
+                    <div class="rWebsite">http://hungvjnh.com</div>
+                    <div class="rBiz">Công nghệ thông tin</div>
                 </div>
                  <div class="result">
                     <div class="rName">10. Tên công  ty</div>
@@ -86,6 +35,154 @@
                     <div class="rPhone">0168.991.7713</div>
                     <div class="rLocation">10.759734,106.661321</div>
                     <div class="rDetail"></div>
+                    <!-- display none -->
+                    <div class="rFax">0168.991.7713</div>
+                    <div class="rEmail">hungvinhbk@gmail.com</div>
+                    <div class="rWebsite">http://hungvjnh.com</div>
+                    <div class="rBiz">Công nghệ thông tin</div>
+                </div>
+                 <div class="result">
+                    <div class="rName">10. Tên công  ty</div>
+                    <div class="rAddr">497 Hòa Hảo, P7, Q10, Tp. HCM</div>
+                    <div class="rPhone">0168.991.7713</div>
+                    <div class="rLocation">10.759734,106.661321</div>
+                    <div class="rDetail"></div>
+                    <!-- display none -->
+                    <div class="rFax">0168.991.7713</div>
+                    <div class="rEmail">hungvinhbk@gmail.com</div>
+                    <div class="rWebsite">http://hungvjnh.com</div>
+                    <div class="rBiz">Công nghệ thông tin</div>
+                </div>
+                 <div class="result">
+                    <div class="rName">10. Tên công  ty</div>
+                    <div class="rAddr">497 Hòa Hảo, P7, Q10, Tp. HCM</div>
+                    <div class="rPhone">0168.991.7713</div>
+                    <div class="rLocation">10.759734,106.661321</div>
+                    <div class="rDetail"></div>
+                    <!-- display none -->
+                    <div class="rFax">0168.991.7713</div>
+                    <div class="rEmail">hungvinhbk@gmail.com</div>
+                    <div class="rWebsite">http://hungvjnh.com</div>
+                    <div class="rBiz">Công nghệ thông tin</div>
+                </div>
+                 <div class="result">
+                    <div class="rName">10. Tên công  ty</div>
+                    <div class="rAddr">497 Hòa Hảo, P7, Q10, Tp. HCM</div>
+                    <div class="rPhone">0168.991.7713</div>
+                    <div class="rLocation">10.759734,106.661321</div>
+                    <div class="rDetail"></div>
+                    <!-- display none -->
+                    <div class="rFax">0168.991.7713</div>
+                    <div class="rEmail">hungvinhbk@gmail.com</div>
+                    <div class="rWebsite">http://hungvjnh.com</div>
+                    <div class="rBiz">Công nghệ thông tin</div>
+                </div>
+                 <div class="result">
+                    <div class="rName">10. Tên công  ty</div>
+                    <div class="rAddr">497 Hòa Hảo, P7, Q10, Tp. HCM</div>
+                    <div class="rPhone">0168.991.7713</div>
+                    <div class="rLocation">10.759734,106.661321</div>
+                    <div class="rDetail"></div>
+                    <!-- display none -->
+                    <div class="rFax">0168.991.7713</div>
+                    <div class="rEmail">hungvinhbk@gmail.com</div>
+                    <div class="rWebsite">http://hungvjnh.com</div>
+                    <div class="rBiz">Công nghệ thông tin</div>
+                </div>
+                 <div class="result">
+                    <div class="rName">10. Tên công  ty</div>
+                    <div class="rAddr">497 Hòa Hảo, P7, Q10, Tp. HCM</div>
+                    <div class="rPhone">0168.991.7713</div>
+                    <div class="rLocation">10.759734,106.661321</div>
+                    <div class="rDetail"></div>
+                    <!-- display none -->
+                    <div class="rFax">0168.991.7713</div>
+                    <div class="rEmail">hungvinhbk@gmail.com</div>
+                    <div class="rWebsite">http://hungvjnh.com</div>
+                    <div class="rBiz">Công nghệ thông tin</div>
+                </div>
+                 <div class="result">
+                    <div class="rName">10. Tên công  ty</div>
+                    <div class="rAddr">497 Hòa Hảo, P7, Q10, Tp. HCM</div>
+                    <div class="rPhone">0168.991.7713</div>
+                    <div class="rLocation">10.759734,106.661321</div>
+                    <div class="rDetail"></div>
+                    <!-- display none -->
+                    <div class="rFax">0168.991.7713</div>
+                    <div class="rEmail">hungvinhbk@gmail.com</div>
+                    <div class="rWebsite">http://hungvjnh.com</div>
+                    <div class="rBiz">Công nghệ thông tin</div>
+                </div>
+                 <div class="result">
+                    <div class="rName">10. Tên công  ty</div>
+                    <div class="rAddr">497 Hòa Hảo, P7, Q10, Tp. HCM</div>
+                    <div class="rPhone">0168.991.7713</div>
+                    <div class="rLocation">10.759734,106.661321</div>
+                    <div class="rDetail"></div>
+                    <!-- display none -->
+                    <div class="rFax">0168.991.7713</div>
+                    <div class="rEmail">hungvinhbk@gmail.com</div>
+                    <div class="rWebsite">http://hungvjnh.com</div>
+                    <div class="rBiz">Công nghệ thông tin</div>
+                </div>
+                 <div class="result">
+                    <div class="rName">10. Tên công  ty</div>
+                    <div class="rAddr">497 Hòa Hảo, P7, Q10, Tp. HCM</div>
+                    <div class="rPhone">0168.991.7713</div>
+                    <div class="rLocation">10.759734,106.661321</div>
+                    <div class="rDetail"></div>
+                    <!-- display none -->
+                    <div class="rFax">0168.991.7713</div>
+                    <div class="rEmail">hungvinhbk@gmail.com</div>
+                    <div class="rWebsite">http://hungvjnh.com</div>
+                    <div class="rBiz">Công nghệ thông tin</div>
+                </div>
+                 <div class="result">
+                    <div class="rName">10. Tên công  ty</div>
+                    <div class="rAddr">497 Hòa Hảo, P7, Q10, Tp. HCM</div>
+                    <div class="rPhone">0168.991.7713</div>
+                    <div class="rLocation">10.759734,106.661321</div>
+                    <div class="rDetail"></div>
+                    <!-- display none -->
+                    <div class="rFax">0168.991.7713</div>
+                    <div class="rEmail">hungvinhbk@gmail.com</div>
+                    <div class="rWebsite">http://hungvjnh.com</div>
+                    <div class="rBiz">Công nghệ thông tin</div>
+                </div>
+                 <div class="result">
+                    <div class="rName">10. Tên công  ty</div>
+                    <div class="rAddr">497 Hòa Hảo, P7, Q10, Tp. HCM</div>
+                    <div class="rPhone">0168.991.7713</div>
+                    <div class="rLocation">10.759734,106.661321</div>
+                    <div class="rDetail"></div>
+                    <!-- display none -->
+                    <div class="rFax">0168.991.7713</div>
+                    <div class="rEmail">hungvinhbk@gmail.com</div>
+                    <div class="rWebsite">http://hungvjnh.com</div>
+                    <div class="rBiz">Công nghệ thông tin</div>
+                </div>
+                 <div class="result">
+                    <div class="rName">10. Tên công  ty</div>
+                    <div class="rAddr">497 Hòa Hảo, P7, Q10, Tp. HCM</div>
+                    <div class="rPhone">0168.991.7713</div>
+                    <div class="rLocation">10.759734,106.661321</div>
+                    <div class="rDetail"></div>
+                    <!-- display none -->
+                    <div class="rFax">0168.991.7713</div>
+                    <div class="rEmail">hungvinhbk@gmail.com</div>
+                    <div class="rWebsite">http://hungvjnh.com</div>
+                    <div class="rBiz">Công nghệ thông tin</div>
+                </div>
+            </div>
+            <div id="infowindow">
+                <div id="icontent">
+                <div class="rName">10. Tên công  ty</div><br />
+                - Địa chỉ: <div class="rAddr">497 Hòa Hảo, P7, Q10, Tp. HCM</div><br />
+                - Số điện thoại: <div class="rPhone">0168.991.7713</div><br />
+                - Fax: <div class="rFax">0168.991.7713</div><br />
+                - Email: <div class="rEmail">hungvinhbk@gmail.com</div><br />
+                - Website: <div class="rWebsite">http://hungvjnh.com</div><br />
+                - Lĩnh vực kinh doanh: <div class="rBiz">Công nghệ thông tin</div><br />
                 </div>
             </div>
             Trang <1> <2>

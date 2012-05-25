@@ -341,10 +341,37 @@ div.accountInfo
     font-size: 12px;
     font-weight:bold;   
 }
+
+.result .rFax, .result .rEmail, .result .rWebsite, .result .rBiz
+{
+    display:none;    
+}
+#icontent .rName
+{
+    font-weight:bold;
+}
+#icontent .rName, #icontent .rAddr, #icontent .rPhone,
+#icontent .rFax, #icontent .rEmail, #icontent .rWebsite, #icontent .rBiz
+{
+    display:inline;
+    font-style:normal;
+}
+#infowindow
+{
+    display:none;  
+    font-style:italic;
+}
+#icontent
+{
+    font-style:italic;
+    
+}
+
 .rLocation
 {
     display:none;    
 }
+
 .rPhone
 {
     
