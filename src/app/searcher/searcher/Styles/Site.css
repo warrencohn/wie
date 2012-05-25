@@ -5,7 +5,7 @@ body
 {
     background: #b6b7bc;
     font-size: .80em;
-    font-family: "Helvetica Neue", "Lucida Grande", "Segoe UI", Arial, Helvetica, Verdana, sans-serif;
+    font-family: "Tahoma", "Helvetica Neue", "Lucida Grande", "Segoe UI", Arial, Helvetica, Verdana, sans-serif;
     margin: 0px;
     padding: 0px;
     color: #696969;
@@ -118,7 +118,7 @@ first child of the left and right table columns */
 {
     padding: 0px 12px;
     margin: 12px 8px 8px 8px;
-    min-height: 620px;
+    min-height: 420px;
 }
 
 .leftCol
@@ -132,9 +132,9 @@ first child of the left and right table columns */
 .footer
 {
     color: #4e5766;
-    padding: 8px 0px 0px 0px;
+    padding: 2px 4px 4px 0px;
     margin: 0px auto;
-    text-align: center;
+    text-align: right;
     line-height: normal;
 }
 
@@ -301,7 +301,7 @@ div.accountInfo
 .sidebar
 {
     width:370px; 
-    height:100%;   
+  
 }
 .map
 {
@@ -329,12 +329,21 @@ div.accountInfo
     margin-top:2px; 
     margin-right:2px;
     position:relative;
+    cursor:pointer;
+}
+.result.active
+{
+    background: url("/Maps/Skins/RedSkin/images/ff/bg-resultitem-active-top.png") repeat-x 0 top #F4DA60;
 }
 
 .result .rName
 {
     font-size: 12px;
     font-weight:bold;   
+}
+.rLocation
+{
+    display:none;    
 }
 .rPhone
 {
@@ -356,6 +365,10 @@ div.accountInfo
     display: block;
     background: url("images/resultdetail.png") no-repeat;
     cursor:pointer;
+}
+.rDetail:hover
+{
+    background-position: 0 -19px;
 }
 
 .searchBox

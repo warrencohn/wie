@@ -18,7 +18,7 @@
     <div class="page">
         <div class="header">            
             <div class="clear hideSkiplink">
-                <div class="title"><h1>Location Searcher</h1></div>
+                <div class="title"><h1>Location Finder</h1></div>
                 <div class="loginDisplay">
                     <asp:LoginView ID="HeadLoginView" runat="server" EnableViewState="false">
                         <AnonymousTemplate>
@@ -44,9 +44,9 @@
         <div class="clear">
         </div>
     </div>
-    <div class="footer">
-        
-    </div>
+    <!--<div class="footer">
+        Copyright (c) 2012, 
+    </div>-->
     </form>
 </body>
 </html>
