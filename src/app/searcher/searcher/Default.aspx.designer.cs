@@ -13,30 +13,57 @@ namespace searcher {
     public partial class _Default {
         
         /// <summary>
-        /// sName control.
+        /// txtsName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox sName;
+        protected global::System.Web.UI.WebControls.TextBox txtsName;
         
         /// <summary>
-        /// sType control.
+        /// txtsName_AutoCompleteExtender control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList sType;
+        protected global::AjaxControlToolkit.AutoCompleteExtender txtsName_AutoCompleteExtender;
         
         /// <summary>
-        /// sSubmit control.
+        /// ddlsType control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button sSubmit;
+        protected global::System.Web.UI.WebControls.DropDownList ddlsType;
+        
+        /// <summary>
+        /// btnsSubmit control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnsSubmit;
+        
+        /// <summary>
+        /// ToolkitScriptManager1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.ToolkitScriptManager ToolkitScriptManager1;
+        
+        /// <summary>
+        /// dlResult control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DataList dlResult;
     }
 }

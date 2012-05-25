@@ -1,5 +1,5 @@
-﻿<%@ Page Title="Home Page" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true"
-    CodeBehind="Default.aspx.cs" Inherits="searcher._Default" %>
+﻿<%@ Page Title="Home Page" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true" CodeBehind="~/Default.aspx.cs" CodeFile="~/Default.aspx.cs" Inherits="searcher._Default" %>
+<%@ Register assembly="AjaxControlToolkit" namespace="AjaxControlToolkit" tagprefix="asp" %>
 
 <asp:Content ID="HeaderContent" runat="server" ContentPlaceHolderID="HeadContent">
 </asp:Content>
@@ -7,16 +7,32 @@
     <div class="container">
         <div class="sidebar">
             <div class="searchBox">
-                    <asp:TextBox ID="sName" runat="server" Text="Nhập thông tin tìm kiếm.."></asp:TextBox>
-                    <asp:DropDownList ID="sType" runat="server">
+                    <asp:TextBox ID="txtsName" runat="server"></asp:TextBox>
+                    <asp:AutoCompleteExtender ID="txtsName_AutoCompleteExtender" runat="server" 
+                        ServiceMethod="GetCompletionList" TargetControlID="txtsName" 
+                        UseContextKey="True" CompletionInterval="1" MinimumPrefixLength="1">
+                    </asp:AutoCompleteExtender>
+                    <asp:DropDownList ID="ddlsType" runat="server">
                         <asp:ListItem>Địa chỉ</asp:ListItem>
                         <asp:ListItem>Công ty</asp:ListItem>
                     </asp:DropDownList>
-
-                    <asp:Button ID="sSubmit" runat="server" Text="Search" />
+                    <asp:Button ID="btnsSubmit" runat="server" Text="Search" 
+                        onclick="btnsSubmit_Click"/>
+                <asp:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server">
+                </asp:ToolkitScriptManager>
             </div>
             Kết quả tìm kiếm:
             <div class="resultBox">
+                <asp:DataList ID="dlResult" runat="server" Width="100%">
+                    <ItemTemplate>
+                        <div class="result">
+                            <div class="rName"><asp:Label ID="lblName" runat="server"  Text='<%# Eval("Ten") %>'></asp:Label><br/></div>
+                            <div class="rAddr"><asp:Label ID="lblAddr" runat="server"  Text='<%# Eval("DiaChiChinhXac") %>'></asp:Label></div>
+                            <div class="rPhone">0168.991.7713</div>
+                            <div class="rDetail"></div>
+                        </div>
+                    </ItemTemplate>
+                </asp:DataList>
                                  <div class="result">
                     <div class="rName">10. Tên công  ty</div>
                     <div class="rAddr">497 Hòa Hảo, P7, Q10, Tp. HCM</div>

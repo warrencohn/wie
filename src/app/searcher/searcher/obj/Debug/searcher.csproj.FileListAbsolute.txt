@@ -3,3 +3,28 @@ E:\DATA\Learning\HK112\TTTN\final\apps\searcher\searcher\bin\searcher.pdb
 E:\DATA\Learning\HK112\TTTN\final\apps\searcher\searcher\obj\Debug\searcher.dll
 E:\DATA\Learning\HK112\TTTN\final\apps\searcher\searcher\obj\Debug\searcher.pdb
 E:\DATA\Learning\HK112\TTTN\final\apps\searcher\searcher\obj\Debug\searcher.csprojResolveAssemblyReference.cache
+C:\Users\tranvikiet\Desktop\extract data\src\app\searcher\searcher\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\tranvikiet\Desktop\extract data\src\app\searcher\searcher\obj\Debug\searcher.dll
+C:\Users\tranvikiet\Desktop\extract data\src\app\searcher\searcher\obj\Debug\searcher.pdb
+C:\Users\tranvikiet\Desktop\extract data\src\app\searcher\searcher\bin\searcher.dll
+C:\Users\tranvikiet\Desktop\extract data\src\app\searcher\searcher\bin\searcher.pdb
+C:\Users\tranvikiet\Desktop\extract data\src\app\searcher\searcher\bin\AjaxControlToolkit.dll
+C:\Users\tranvikiet\Desktop\extract data\src\app\searcher\searcher\bin\Newtonsoft.Json.dll
+C:\Users\tranvikiet\Desktop\extract data\src\app\searcher\searcher\bin\AjaxControlToolkit.pdb
+C:\Users\tranvikiet\Desktop\extract data\src\app\searcher\searcher\bin\Newtonsoft.Json.xml
+C:\Users\tranvikiet\Desktop\extract data\src\app\searcher\searcher\bin\ar\AjaxControlToolkit.resources.dll
+C:\Users\tranvikiet\Desktop\extract data\src\app\searcher\searcher\bin\cs\AjaxControlToolkit.resources.dll
+C:\Users\tranvikiet\Desktop\extract data\src\app\searcher\searcher\bin\de\AjaxControlToolkit.resources.dll
+C:\Users\tranvikiet\Desktop\extract data\src\app\searcher\searcher\bin\es\AjaxControlToolkit.resources.dll
+C:\Users\tranvikiet\Desktop\extract data\src\app\searcher\searcher\bin\fr\AjaxControlToolkit.resources.dll
+C:\Users\tranvikiet\Desktop\extract data\src\app\searcher\searcher\bin\he\AjaxControlToolkit.resources.dll
+C:\Users\tranvikiet\Desktop\extract data\src\app\searcher\searcher\bin\hi\AjaxControlToolkit.resources.dll
+C:\Users\tranvikiet\Desktop\extract data\src\app\searcher\searcher\bin\it\AjaxControlToolkit.resources.dll
+C:\Users\tranvikiet\Desktop\extract data\src\app\searcher\searcher\bin\ja\AjaxControlToolkit.resources.dll
+C:\Users\tranvikiet\Desktop\extract data\src\app\searcher\searcher\bin\ko\AjaxControlToolkit.resources.dll
+C:\Users\tranvikiet\Desktop\extract data\src\app\searcher\searcher\bin\nl\AjaxControlToolkit.resources.dll
+C:\Users\tranvikiet\Desktop\extract data\src\app\searcher\searcher\bin\pt\AjaxControlToolkit.resources.dll
+C:\Users\tranvikiet\Desktop\extract data\src\app\searcher\searcher\bin\ru\AjaxControlToolkit.resources.dll
+C:\Users\tranvikiet\Desktop\extract data\src\app\searcher\searcher\bin\tr-TR\AjaxControlToolkit.resources.dll
+C:\Users\tranvikiet\Desktop\extract data\src\app\searcher\searcher\bin\zh-CHS\AjaxControlToolkit.resources.dll
+C:\Users\tranvikiet\Desktop\extract data\src\app\searcher\searcher\bin\zh-CHT\AjaxControlToolkit.resources.dll
