@@ -68,7 +68,7 @@ $(document).ready(function () {
 
     $(window).resize(setWindowSize);
 
-    $("#MainContent_sName").click(function () {
+    $("#txtsName").click(function () {
         if ($(this).val() == "Nhập thông tin tìm kiếm..") {
             $(this).val('');
         }

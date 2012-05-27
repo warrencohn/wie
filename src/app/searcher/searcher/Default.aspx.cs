@@ -39,8 +39,14 @@ namespace searcher
                 if (whereclause != "")
                 {
                     string sql = "SELECT * FROM tbl_CongTy WHERE DiaChiId IN (SELECT  id FROM tbl_DiaChi " + whereclause + ")";
-                    DataTable list = Database.GetData(sql);
-                    dlResult.DataSource = list;
+                    string sqlPhone = ";SELECT * FROM tbl_CongTy_DienThoai";
+                    string sqlFull = sql + sqlPhone;
+                    SqlDataAdapter da = new SqlDataAdapter(sqlFull, Database.GetConnection());
+                    DataSet ds = new DataSet();
+                    da.Fill(ds);
+                    ds.Relations.Add(new DataRelation("CongTy_DienThoai", ds.Tables[0].Columns["Id"], ds.Tables[1].Columns["CongTyId"],false));
+                    //DataTable list = Database.GetData(sql);
+                    dlResult.DataSource = ds;
                     dlResult.DataBind();
                 }
                 else
@@ -49,6 +55,7 @@ namespace searcher
                     dlResult.DataBind();
                     //Response.Redirect(Request.Url.ToString());
                 }
+
             }
             else { }
         }
@@ -58,9 +65,7 @@ namespace searcher
         {
             //string sql = "Select duong from DiaChi Where duong like '" + prefixText + "' + '%'";
             string sql = "SELECT DISTINCT DuongKhongDau FROM tbl_DiaChi WHERE Duong LIKE N'%" + prefixText + "%' OR DuongKhongDau LIKE N'%" + prefixText + "%'";
-            SqlDataAdapter da = new SqlDataAdapter(sql, Database.GetConnection());
-            DataTable dt = new DataTable();
-            da.Fill(dt);
+            DataTable dt = Database.GetData(sql);
             string[] items = new string[dt.Rows.Count];
             int i = 0;
             foreach (DataRow dr in dt.Rows)
@@ -76,5 +81,17 @@ namespace searcher
             int number1;
             return int.TryParse(value, out number1);
         }
+
+        protected void dlResult_ItemDataBound(object sender, DataListItemEventArgs e)
+        {
+            if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+            {
+                DataRowView drv = e.Item.DataItem as DataRowView;
+                DataList dlPhone = e.Item.FindControl("dlPhone") as DataList;
+                dlPhone.DataSource = drv.CreateChildView("CongTy_DienThoai");
+                dlPhone.DataBind();
+            }
+        }
+
     }
 }
