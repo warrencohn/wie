@@ -346,22 +346,22 @@ div.accountInfo
 {
     display:none;    
 }
-#icontent .rName
+.icontent .rName
 {
     font-weight:bold;
 }
-#icontent .rName, #icontent .rAddr, #icontent .rPhone,
-#icontent .rFax, #icontent .rEmail, #icontent .rWebsite, #icontent .rBiz
+.icontent .rName, .icontent .rAddr, .icontent .rPhone,
+.icontent .rFax, .icontent .rEmail, .icontent .rWebsite, .icontent .rBiz
 {
     display:inline;
     font-style:normal;
 }
-#infowindow
+.infowindow1
 {
     display:none;  
     font-style:italic;
 }
-#icontent
+.icontent
 {
     font-style:italic;
     

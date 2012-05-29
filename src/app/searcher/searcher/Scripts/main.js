@@ -63,6 +63,8 @@ function drawAllMarker() {
 }
 
 $(document).ready(function () {
+
+    //    alert('123');
     setWindowSize();
     initialize();
 
@@ -75,18 +77,22 @@ $(document).ready(function () {
     });
 
     $(".result").click(function () {
+
         $(".result").removeClass('active');
         $(this).addClass('active');
 
+        var $span = $('span');
         var latLng = $(this).find('.rLocation').html();
         //alert(latLng);
         var pos = getLatLngFromString(latLng);
 
         // Replace our Info Window's content and position
 
+        //        var $info1 = $;
+        var iw = $(this).find('.infowindow1');
 
-        var iw = $("#infowindow");
         console.log(iw);
+
         iw.find('rName').html($(this).find('rName'));
         iw.find('rAddr').html($(this).find('rAddr'));
         iw.find('rPhone').html($(this).find('rPhone'));

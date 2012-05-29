@@ -22,41 +22,30 @@
                 </asp:ToolkitScriptManager>
             </div>
             Kết quả tìm kiếm:
-            <asp:Label ID="testName" runat="server" Text="Test SELECTED" ></asp:Label>
             <div class="resultBox">
-                <asp:DataList ID="dlResult" runat="server" Width="100%" 
-                    onitemdatabound="dlResult_ItemDataBound" >
+                <asp:DataList ID="dlResult" runat="server" Width="100%" >
                     <ItemTemplate>
                         <div class="result">
                             <div class="rName"><%# Container.ItemIndex + 1 %>. <asp:Label ID="lblName" runat="server"  Text='<%# Eval("Ten") %>'></asp:Label><br/></div>
-                            <div class="rAddr"><asp:Label ID="lblAddr" runat="server"  Text='<%# Eval("DiaChiChinhXac") %>'></asp:Label></div>
-                            <asp:DataList ID="dlPhone" runat="server">
-                                <ItemTemplate>
-                                    <div class="rPhone"><asp:Label ID="lblPhone" runat="server" Text='<%# Eval("SoDienThoai") %>'></asp:Label></div>
-                                </ItemTemplate>
-                            </asp:DataList>
+                            <div><asp:Label ID="lblAddr" class="rAddr" runat="server"  Text='<%# Eval("DiaChiChinhXac") %>'></asp:Label></div>
                             <div class="rDetail"></div>
-                            <div class="rFax">0168.991.7713</div>
-                            <div class="rEmail"><asp:Label ID="lblEmail" runat="server"  Text='<%# Eval("Email") %>'></asp:Label></div>
-                            <div class="rWebsite"><asp:Label ID="lblPhone" runat="server"  Text='<%# Eval("Website") %>'></asp:Label></div>
-                            <div class="rBiz">Công nghệ thông tin</div>
-                            <div class="rLocation">10.759734,106.661321</div>
-                            <div id="infowindow">
-                                    <div id="icontent">
-                                        <div class="rName"><asp:Label ID="lblIName" runat="server" Text='<%# Eval("Ten") %>' ></asp:Label></div><br />
-                                        - Địa chỉ: <div class="rAddr"><asp:Label ID="lblIAddr" runat="server" Text='<%# Eval("DiaChiChinhXac") %>'></asp:Label></div><br />
-                                        - Số điện thoại: <div class="rPhone"><asp:Label ID="lblIPhone" runat="server"></asp:Label></div><br />
-                                        - Fax: <div class="rFax"><asp:Label ID="lblIFax" runat="server"></asp:Label></div><br />
-                                        - Email: <div class="rEmail"><asp:Label ID="lblIEmail" runat="server" Text='<%# Eval("Email") %>'></asp:Label></div><br />
-                                        - Website: <div class="rWebsite"><asp:Label ID="lblIWebsite" runat="server" Text='<%# Eval("Website") %>'></asp:Label></div><br />
-                                        - Lĩnh vực kinh doanh: <div class="rBiz"><asp:Label ID="lblILinhVuc" runat="server"></asp:Label></div><br />
-                                    </div>
+                            <div><asp:Label class="rLocation" ID="lblLocation" runat="server" Text='<%# Eval("X").ToString().Replace(",",".")+","+Eval("Y").ToString().Replace(",",".")%>'></asp:Label></div>
+                            <div class="infowindow1">
+                            <div class="icontent">
+                                <div class="rName"><asp:Label ID="lblIName" runat="server" Text='<%# Eval("Ten") %>' ></asp:Label></div><br />
+                                - Địa chỉ: <div class="rAddr"><asp:Label ID="lblIAddr" runat="server" Text='<%# Eval("DiaChiChinhXac") %>'></asp:Label></div><br />
+                                - Số điện thoại: <div class="rPhone"><asp:Label ID="lblIPhone" runat="server" Text='<%# Eval("SoDienThoai").ToString().Replace(","," - ") %>'></asp:Label></div><br />
+                                - Fax: <div class="rFax"><asp:Label ID="lblIFax" runat="server" Text='<%# Eval("SoFax").ToString().Replace(","," - ") %>'></asp:Label></div><br />
+                                - Email: <div class="rEmail"><asp:Label ID="lblIEmail" runat="server" Text='<%# Eval("Email") %>'></asp:Label></div><br />
+                                - Website: <div class="rWebsite"><asp:Label ID="lblIWebsite" runat="server" Text='<%# Eval("Website") %>'></asp:Label></div><br />
+                                - Lĩnh vực kinh doanh: <div class="rBiz"><asp:Label ID="lblILinhVuc" runat="server" Text='<%# Eval("NganhNghe").ToString().Replace(","," - ") %>'></asp:Label></div><br />
                             </div>
-
                         </div>
+                        </div>
+                        
                     </ItemTemplate>
                 </asp:DataList>
-                <div class="result">
+                <%--<div class="result">
                     <div class="rName">10. Tên công  ty</div>
                     <div class="rAddr">497 Hòa Hảo, P7, Q10, Tp. HCM</div>
                     <div class="rPhone">0168.991.7713</div>
@@ -67,9 +56,11 @@
                     <div class="rEmail">hungvinhbk@gmail.com</div>
                     <div class="rWebsite">http://hungvjnh.com</div>
                     <div class="rBiz">Công nghệ thông tin</div>
-                </div>
+                </div>--%>
             </div>
             Trang <1> <2>
+            
+        
         </div>
         <div class="map" id="map_canvas">
         

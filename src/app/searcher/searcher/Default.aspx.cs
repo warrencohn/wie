@@ -38,15 +38,15 @@ namespace searcher
                 }
                 if (whereclause != "")
                 {
-                    string sql = "SELECT * FROM tbl_CongTy WHERE DiaChiId IN (SELECT  id FROM tbl_DiaChi " + whereclause + ")";
-                    string sqlPhone = ";SELECT * FROM tbl_CongTy_DienThoai";
-                    string sqlFull = sql + sqlPhone;
-                    SqlDataAdapter da = new SqlDataAdapter(sqlFull, Database.GetConnection());
-                    DataSet ds = new DataSet();
-                    da.Fill(ds);
-                    ds.Relations.Add(new DataRelation("CongTy_DienThoai", ds.Tables[0].Columns["Id"], ds.Tables[1].Columns["CongTyId"],false));
-                    //DataTable list = Database.GetData(sql);
-                    dlResult.DataSource = ds;
+                    string sql = "SELECT * FROM SEARCH_DIACHI_VW " + whereclause;
+                    //string sqlPhone = ";SELECT * FROM tbl_CongTy_DienThoai";
+                    //string sqlFull = sql + sqlPhone;
+                    //SqlDataAdapter da = new SqlDataAdapter(sql, Database.GetConnection());
+                    //DataTable dt = new DataTable();
+                    //da.Fill(dt);
+                    //ds.Relations.Add(new DataRelation("CongTy_DienThoai", ds.Tables[0].Columns["Id"], ds.Tables[1].Columns["CongTyId"],false));
+                    DataTable dt = Database.GetData(sql);
+                    dlResult.DataSource = dt;
                     dlResult.DataBind();
                 }
                 else
@@ -81,17 +81,5 @@ namespace searcher
             int number1;
             return int.TryParse(value, out number1);
         }
-
-        protected void dlResult_ItemDataBound(object sender, DataListItemEventArgs e)
-        {
-            if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
-            {
-                DataRowView drv = e.Item.DataItem as DataRowView;
-                DataList dlPhone = e.Item.FindControl("dlPhone") as DataList;
-                dlPhone.DataSource = drv.CreateChildView("CongTy_DienThoai");
-                dlPhone.DataBind();
-            }
-        }
-
     }
 }
