@@ -45,6 +45,8 @@ function setWindowSize() {
 function drawAllMarker() {
     var counter = 0;
     var pos;
+
+    var markers = [];
     $('.result').each(function () {
         var latLng = $(this).find('.rLocation').html();
         counter++;
@@ -56,8 +58,20 @@ function drawAllMarker() {
             icon: "Styles/images/markers/number_" + counter + ".png"
         });
 
-
+        markers.push(marker);
     });
+
+    console.log(markers);
+
+    for (var i = 0; i < markers.length; i++) {
+        for (var j = 0; j < i; j++) {
+            if (markers[i].getPosition().equals(markers[j].getPosition())) {
+                var lat = markers[i].getPosition().lat() + 0.0003;
+                var lng = markers[i].getPosition().lng() + 0.0003;
+                markers[i].setPosition(new google.maps.LatLng(lat,lng));
+            }
+        }
+    }
 
     return pos;
 }
