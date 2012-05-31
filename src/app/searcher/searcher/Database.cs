@@ -9,7 +9,7 @@ namespace searcher
 {
     public static class Database
     {
-        public static String conStr = "Data Source=(local);Initial Catalog=BDSG;Integrated Security=True";
+        public static String conStr = "Data Source=HUNGVJNH\\SQLEXPRESS;Initial Catalog=BDSG;Integrated Security=True";
         public static SqlConnection GetConnection()
         {
             return new SqlConnection(conStr);

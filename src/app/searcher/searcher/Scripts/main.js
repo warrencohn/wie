@@ -36,9 +36,11 @@ function setWindowSize() {
     $(".map").width(mw + 'px');
     $(".map").height(mh + 'px');
     $(".sidebar").height(mh + 'px');
-    $(".resultBox").height(rh + 'px'); 
+    $(".resultBox").height(rh + 'px');
     $(".main").height(mainh + 'px');
-    
+
+    $(".container").height(mainh + 'px');
+    //$(".container").attr('left', '');
     //$(".resultBox").height(mh + 'px');
 }
 
@@ -75,6 +77,7 @@ function drawAllMarker() {
 
     return pos;
 }
+var isClosed = false;
 
 $(document).ready(function () {
 
@@ -125,6 +128,31 @@ $(document).ready(function () {
         map.panTo(pos);
 
 
+    });
+
+    $(".toolbox").click(function () {
+        if (!isClosed) {
+            $(".sidebar").hide();
+            $(this).css('left', '20px');
+            var w = $(".map").width() + 380;
+            $(".map").width(w + 'px');
+            isClosed = true;
+            $(this).html('Hiện sidebar');
+        }
+        else {
+            $(".sidebar").show();
+            $(this).css('left', '390px');
+            var w = $(".map").width() - 380;
+            $(".map").width(w + 'px');
+            isClosed = false;
+            $(this).html('Xem toàn màn hình');
+        }
+    });
+
+    $(".loginDisplay a img").hover(function () {
+        $(this).attr('src', 'Styles/images/ads_hover.jpg');
+    }, function () {
+        $(this).attr('src', 'Styles/images/ads.jpg');
     });
 });
 

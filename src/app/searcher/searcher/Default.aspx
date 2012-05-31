@@ -63,8 +63,8 @@
         
         </div>
         <div class="map" id="map_canvas">
-        
         </div>
+        <div class="toolbox">Xem toàn màn hình</div>
     </div>
     
 

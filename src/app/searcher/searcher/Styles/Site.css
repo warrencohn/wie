@@ -262,8 +262,15 @@ div.accountInfo
     margin:0px;
     text-align:right;
     float:right;
-    padding: 10px;
+    padding-top:2px;
+    padding-right:2px;
     color: White;
+    margin-right:35px;
+}
+
+.loginDisplay a
+{
+    text-decoration: none;
 }
 
 .loginDisplay a:link
@@ -276,10 +283,7 @@ div.accountInfo
     color: white;
 }
 
-.loginDisplay a:hover
-{
-    color: white;
-}
+
 
 .failureNotification
 {
@@ -403,3 +407,25 @@ div.accountInfo
     
 }
 
+.container
+{
+    position:relative;
+    width:100%;
+}
+.toolbox
+{
+    position:absolute;
+    left:390px;
+    bottom:30px;
+    width: 120px;
+    height:20px;
+    background-color:#000;
+    color:#fff;
+    opacity:0.9;
+    padding-left:5px;
+    padding-right:5px;
+    padding-top:5px;
+    z-index:999;
+    cursor:pointer;
+    text-align:center;
+}

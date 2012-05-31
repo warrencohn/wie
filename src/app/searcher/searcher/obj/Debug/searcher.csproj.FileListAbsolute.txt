@@ -28,3 +28,22 @@ C:\Users\tranvikiet\Desktop\extract data\src\app\searcher\searcher\bin\ru\AjaxCo
 C:\Users\tranvikiet\Desktop\extract data\src\app\searcher\searcher\bin\tr-TR\AjaxControlToolkit.resources.dll
 C:\Users\tranvikiet\Desktop\extract data\src\app\searcher\searcher\bin\zh-CHS\AjaxControlToolkit.resources.dll
 C:\Users\tranvikiet\Desktop\extract data\src\app\searcher\searcher\bin\zh-CHT\AjaxControlToolkit.resources.dll
+E:\DATA\Learning\HK112\TTTN\final\apps\searcher\searcher\bin\Newtonsoft.Json.dll
+E:\DATA\Learning\HK112\TTTN\final\apps\searcher\searcher\bin\AjaxControlToolkit.pdb
+E:\DATA\Learning\HK112\TTTN\final\apps\searcher\searcher\bin\Newtonsoft.Json.xml
+E:\DATA\Learning\HK112\TTTN\final\apps\searcher\searcher\bin\ar\AjaxControlToolkit.resources.dll
+E:\DATA\Learning\HK112\TTTN\final\apps\searcher\searcher\bin\cs\AjaxControlToolkit.resources.dll
+E:\DATA\Learning\HK112\TTTN\final\apps\searcher\searcher\bin\de\AjaxControlToolkit.resources.dll
+E:\DATA\Learning\HK112\TTTN\final\apps\searcher\searcher\bin\es\AjaxControlToolkit.resources.dll
+E:\DATA\Learning\HK112\TTTN\final\apps\searcher\searcher\bin\fr\AjaxControlToolkit.resources.dll
+E:\DATA\Learning\HK112\TTTN\final\apps\searcher\searcher\bin\he\AjaxControlToolkit.resources.dll
+E:\DATA\Learning\HK112\TTTN\final\apps\searcher\searcher\bin\hi\AjaxControlToolkit.resources.dll
+E:\DATA\Learning\HK112\TTTN\final\apps\searcher\searcher\bin\it\AjaxControlToolkit.resources.dll
+E:\DATA\Learning\HK112\TTTN\final\apps\searcher\searcher\bin\ja\AjaxControlToolkit.resources.dll
+E:\DATA\Learning\HK112\TTTN\final\apps\searcher\searcher\bin\ko\AjaxControlToolkit.resources.dll
+E:\DATA\Learning\HK112\TTTN\final\apps\searcher\searcher\bin\nl\AjaxControlToolkit.resources.dll
+E:\DATA\Learning\HK112\TTTN\final\apps\searcher\searcher\bin\pt\AjaxControlToolkit.resources.dll
+E:\DATA\Learning\HK112\TTTN\final\apps\searcher\searcher\bin\ru\AjaxControlToolkit.resources.dll
+E:\DATA\Learning\HK112\TTTN\final\apps\searcher\searcher\bin\tr-TR\AjaxControlToolkit.resources.dll
+E:\DATA\Learning\HK112\TTTN\final\apps\searcher\searcher\bin\zh-CHS\AjaxControlToolkit.resources.dll
+E:\DATA\Learning\HK112\TTTN\final\apps\searcher\searcher\bin\zh-CHT\AjaxControlToolkit.resources.dll
