@@ -1,4 +1,4 @@
---DROP VIEW CongTy_NganhNghe_VW
+--DROP VIEW SEARCH_DIACHI_VW
 GO
 CREATE VIEW CongTy_DienThoai_VW
 AS
@@ -50,7 +50,7 @@ AS g(y)
 GO
 CREATE VIEW SEARCH_DIACHI_VW
 AS
-SELECT Ten,DiaChiChinhXac,SoDienThoai,Email,SoFax,Website,Rank,SoNha,Duong,Phuong,Quan,DuongKhongDau,QuanKhongDau,NganhNghe,X,Y
+SELECT ct.Id,Ten,DiaChiChinhXac,SoDienThoai,Email,SoFax,Website,Rank,SoNha,Duong,Phuong,Quan,DuongKhongDau,QuanKhongDau,NganhNghe,X,Y
 FROM tbl_CongTy ct
 RIGHT JOIN tbl_DiaChi dc
 ON ct.DiaChiId = dc.Id
@@ -60,6 +60,3 @@ LEFT JOIN CongTy_Fax_VW sf
 ON ct.Id = sf.CongTyId
 LEFT JOIN CongTy_NganhNghe_VW nn
 ON ct.Id = nn.CongTyId
-GO
-
-SELECT * FROM SEARCH_DIACHI_VW
