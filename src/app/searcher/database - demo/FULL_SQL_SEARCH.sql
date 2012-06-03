@@ -6,10 +6,10 @@ SELECT	i.CongTyId, STUFF(g.y, 1, 1, '') AS SoDienThoai
 	FROM	
 	(SELECT	CongTyId FROM tbl_CongTy_DienThoai GROUP BY CongTyId ) AS i 
 	CROSS APPLY	( 
-	SELECT DISTINCT	',' + CAST(SoDienThoai AS VARCHAR(11)) 
+	SELECT DISTINCT	',' + CAST(SoDienThoai AS NNVARCHAR(11)) 
 	FROM	 tbl_CongTy_DienThoai AS s 
 	WHERE	 s.CongTyId = i.CongTyId 
-	ORDER BY	',' + CAST(SoDienThoai AS VARCHAR(11)) 
+	ORDER BY	',' + CAST(SoDienThoai AS NVARCHAR(11)) 
 	FOR XML	 PATH('') 
 	) AS g(y); 
 	
@@ -20,10 +20,10 @@ SELECT	i.CongTyId, STUFF(g.y, 1, 1, '') AS SoFax
 	FROM	
 	(SELECT	CongTyId FROM tbl_CongTy_Fax GROUP BY CongTyId ) AS i 
 	CROSS APPLY	( 
-	SELECT DISTINCT	',' + CAST(SoFax AS VARCHAR(11)) 
+	SELECT DISTINCT	',' + CAST(SoFax AS NVARCHAR(11)) 
 	FROM	 tbl_CongTy_Fax AS s 
 	WHERE	 s.CongTyId = i.CongTyId 
-	ORDER BY	',' + CAST(SoFax AS VARCHAR(11)) 
+	ORDER BY	',' + CAST(SoFax AS NVARCHAR(11)) 
 	FOR XML	 PATH('') 
 	) AS g(y)
 GO	
@@ -36,13 +36,13 @@ FROM tbl_CongTy_NganhNghe ctnn
 LEFT JOIN tbl_NganhNghe nn
 ON ctnn.NganhNgheId = nn.Id) as m GROUP BY CongTyId ) AS i 
 CROSS APPLY	( 
-	SELECT DISTINCT	',' + CAST(Ten AS VARCHAR(11)) 
+	SELECT DISTINCT	',' + CAST(Ten AS NVARCHAR(11)) 
 	FROM	 (select CongTyId,Ten
 			FROM tbl_CongTy_NganhNghe ctnn
 			LEFT JOIN tbl_NganhNghe nn
 			ON ctnn.NganhNgheId = nn.Id) AS s 
 	WHERE	 s.CongTyId = i.CongTyId 
-	ORDER BY	',' + CAST(Ten AS VARCHAR(11)) 
+	ORDER BY	',' + CAST(Ten AS NVARCHAR(11)) 
 	FOR XML	 PATH('') 
 	) 
 AS g(y) 
