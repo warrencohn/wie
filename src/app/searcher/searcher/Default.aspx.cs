@@ -12,40 +12,51 @@ namespace searcher
 {
     public partial class _Default : System.Web.UI.Page
     {
+        static string[] items;
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
+                string sql = "SELECT TOP (100) DuongKhongDau , MAX(RankDC) AS Expr1 " +
+                                " FROM tbl_DiaChi " +
+                                " GROUP BY DuongKhongDau " +
+                                " ORDER BY expr1 DESC";
+                DataTable dt = Database.GetData(sql);
+                items = new string[dt.Rows.Count];
+                int i = 0;
+                foreach (DataRow dr in dt.Rows)
+                {
+                    items.SetValue(dr[0].ToString(), i);
+                    i++;
+                }
+                for (int index = 0; index < items.Length; index++)
+                    lblTest.Text += items[index] + (index == items.Length - 1 ? "" : "|");
             }
 
         }
         protected void btnsSubmit_Click(object sender, EventArgs e)
         {
-            if (ddlsType.SelectedIndex == 0)
+            if (txtsName.Text != "")
             {
                 string[] diachi;
                 string chitiet = txtsName.Text;
                 string whereclause = "";
+                string whereclause2 = "";
+                string updateRankDC = "";
+                whereclause = "WHERE DuongKhongDau LIKE N'%" + txtsName.Text.Trim().Replace(",", "") + "%'";
+                whereclause2 = " OR Ten LIKE N'%" + txtsName.Text.Trim().Replace(",", "") + "%'";
                 if (IsNumber(chitiet[0].ToString()))
                 {
-                    diachi = txtsName.Text.Trim().Split(new char[] { ' ' }, 2);
+                    diachi = txtsName.Text.Trim().Replace(",", "").Split(new char[] { ' ' }, 2);
                     if (diachi.Length == 2)
-                        whereclause = "WHERE SoNha LIKE '%" + diachi[0] + "%' AND DuongKhongDau LIKE N'%" + diachi[1] + "%'";
-                }
-                else
-                {
-                    whereclause = "WHERE DuongKhongDau LIKE N'%" + txtsName.Text + "%'";
+                        whereclause += " OR (SoNha LIKE '%" + diachi[0] + "%' AND DuongKhongDau LIKE N'%" + diachi[1] + "%')";
                 }
                 if (whereclause != "")
                 {
-                    string sql = "SELECT * FROM SEARCH_DIACHI_VW " + whereclause;
-                    //string sqlPhone = ";SELECT * FROM tbl_CongTy_DienThoai";
-                    //string sqlFull = sql + sqlPhone;
-                    //SqlDataAdapter da = new SqlDataAdapter(sql, Database.GetConnection());
-                    //DataTable dt = new DataTable();
-                    //da.Fill(dt);
-                    //ds.Relations.Add(new DataRelation("CongTy_DienThoai", ds.Tables[0].Columns["Id"], ds.Tables[1].Columns["CongTyId"],false));
-                    DataTable dt = Database.GetData(sql);
+                    string query = "SELECT * FROM SEARCH_DIACHI_VW " + whereclause + whereclause2;
+                    updateRankDC = "UPDATE tbl_DiaChi SET RankDC +=1 " + whereclause;
+                    Database.ExecuteNonQuery(updateRankDC);
+                    DataTable dt = Database.GetData(query);
                     dlResult.DataSource = dt;
                     dlResult.DataBind();
                 }
@@ -57,24 +68,10 @@ namespace searcher
                 }
 
             }
-            else { }
+            //btnsSubmit.Attributes.Add("onclick", "javascript:resultLoad();");
         }
 
         [System.Web.Services.WebMethodAttribute(), System.Web.Script.Services.ScriptMethodAttribute()]
-        public static string[] GetCompletionList(string prefixText, int count, string contextKey)
-        {
-            //string sql = "Select duong from DiaChi Where duong like '" + prefixText + "' + '%'";
-            string sql = "SELECT DISTINCT DuongKhongDau FROM tbl_DiaChi WHERE Duong LIKE N'%" + prefixText + "%' OR DuongKhongDau LIKE N'%" + prefixText + "%'";
-            DataTable dt = Database.GetData(sql);
-            string[] items = new string[dt.Rows.Count];
-            int i = 0;
-            foreach (DataRow dr in dt.Rows)
-            {
-                items.SetValue(dr[0].ToString(), i);
-                i++;
-            }
-            return items;
-        }
         static bool IsNumber(string value)
         {
             // Return true if this is a number.

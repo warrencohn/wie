@@ -9,7 +9,7 @@ namespace searcher
 {
     public static class Database
     {
-        public static String conStr = "Data Source=HUNGVJNH\\SQLEXPRESS;Initial Catalog=BDSG;Integrated Security=True";
+        public static String conStr = "Data Source=(local);Initial Catalog=BDDemo;Integrated Security=True";
         public static SqlConnection GetConnection()
         {
             return new SqlConnection(conStr);
@@ -34,6 +34,16 @@ namespace searcher
                 command.Parameters.AddWithValue(parameters[i].ToString(), parameters[i + 1]);
             }
             return command;
+        }
+        public static int ExecuteNonQuery(String sql, params Object[] parameters)
+        {
+            SqlCommand command = Database.CreateCommand(sql, parameters);
+
+            command.Connection.Open();
+            int rows = command.ExecuteNonQuery();
+            command.Connection.Close();
+
+            return rows;
         }
     }
 }
