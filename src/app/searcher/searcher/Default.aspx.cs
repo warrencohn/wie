@@ -1,12 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.Data;
+using System.Configuration;
+using System.Collections;
 using System.Web;
+using System.Web.Configuration;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Data.SqlClient;
-using System.Data;
-using Newtonsoft.Json;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;
 
 namespace searcher
 {
@@ -31,6 +32,7 @@ namespace searcher
                 }
                 for (int index = 0; index < items.Length; index++)
                     lblTest.Text += items[index] + (index == items.Length - 1 ? "" : "|");
+
             }
 
         }
@@ -64,17 +66,14 @@ namespace searcher
                 {
                     dlResult.DataSource = null;
                     dlResult.DataBind();
-                    //Response.Redirect(Request.Url.ToString());
                 }
 
             }
-            //btnsSubmit.Attributes.Add("onclick", "javascript:resultLoad();");
         }
 
         [System.Web.Services.WebMethodAttribute(), System.Web.Script.Services.ScriptMethodAttribute()]
         static bool IsNumber(string value)
         {
-            // Return true if this is a number.
             int number1;
             return int.TryParse(value, out number1);
         }

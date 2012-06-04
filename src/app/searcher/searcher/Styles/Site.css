@@ -313,6 +313,7 @@ div.accountInfo
     margin-left:10px;
     height:600px;
     padding: 0;
+    overflow:hidden;
 }
 .map, .sidebar
 {

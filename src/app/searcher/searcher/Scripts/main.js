@@ -16,7 +16,8 @@ function initialize() {
     map = new google.maps.Map(document.getElementById('map_canvas'),
             myOptions);
     //alert("X");
-    
+    google.maps.event.trigger(map, 'resize');
+
     infowindow = new google.maps.InfoWindow();
 
     var pos = drawAllMarker();
@@ -79,7 +80,8 @@ function drawAllMarker() {
 }
 var isClosed = false;
 
-$(document).ready(function () {
+
+function resultLoad() {
     var returnStr = document.getElementById("MainContent_lblTest").innerHTML;
     var availableTags = returnStr.split('|');
     //alert(availableTags);
@@ -99,7 +101,7 @@ $(document).ready(function () {
 			    }
 			})
 			.autocomplete({
-			    minLength: 3,
+			    minLength: 0,
 			    source: function (request, response) {
 			        // delegate back to autocomplete, but extract the last term
 			        response($.ui.autocomplete.filter(
@@ -131,8 +133,9 @@ $(document).ready(function () {
             $(this).val('');
         }
     });
-    $(".result").click(function () {
 
+    $(".result").click(function () {
+        console.log('result clicked');
         $(".result").removeClass('active');
         $(this).addClass('active');
 
@@ -169,10 +172,12 @@ $(document).ready(function () {
     });
 
     $(".toolbox").click(function () {
+        console.log("toolbox clicked " + isClosed);
+        var cent = map.getCenter();
         if (!isClosed) {
             $(".sidebar").hide();
             $(this).css('left', '20px');
-            var w = $(".map").width() + 380;
+            var w = $(".map").width() + 390;
             $(".map").width(w + 'px');
             isClosed = true;
             $(this).html('Hiện sidebar');
@@ -180,11 +185,13 @@ $(document).ready(function () {
         else {
             $(".sidebar").show();
             $(this).css('left', '390px');
-            var w = $(".map").width() - 380;
+            var w = $(".map").width() - 390;
             $(".map").width(w + 'px');
             isClosed = false;
             $(this).html('Xem toàn màn hình');
         }
+        google.maps.event.trigger(map, "resize");
+        map.setCenter(cent);
     });
 
     $(".loginDisplay a img").hover(function () {
@@ -192,5 +199,11 @@ $(document).ready(function () {
     }, function () {
         $(this).attr('src', 'Styles/images/ads.jpg');
     });
+}
+
+$(document).ready(function () {
+    resultLoad();
 });
+
 //google.maps.event.addDomListener(window, 'load', initialize);
+//Sys.WebForms.PageRequestManager.getInstance().add_endRequest(resultLoad)
