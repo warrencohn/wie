@@ -1,11 +1,23 @@
 var map;
 var infoWindow;
-
+var markers = [];
 function getLatLngFromString(str) {
     var temp = str.split(',');
-    var pos = new google.maps.LatLng(temp[0], temp[1]);
+    var x = Number(temp[0]);
+    var y = Number(temp[1]);
+    //console.log("x = " + x + ", y = " + y);
+    var pos = new google.maps.LatLng(x, y);
     return pos;
 };
+
+function getMarkerByPos(pos) {
+    for (i = 0; i < markers.length; i++) {
+        if (markers[i].getPosition().equals(pos)) {
+            return i;
+        }
+    }
+    return -1;
+}
 
 function initialize() {
     var myOptions = {
@@ -49,7 +61,7 @@ function drawAllMarker() {
     var counter = 0;
     var pos;
 
-    var markers = [];
+    
     $('.result').each(function () {
         var latLng = $(this).find('.rLocation').html();
         counter++;
@@ -64,14 +76,16 @@ function drawAllMarker() {
         markers.push(marker);
     });
 
-    console.log(markers);
+    //console.log(markers);
 
     for (var i = 0; i < markers.length; i++) {
         for (var j = 0; j < i; j++) {
             if (markers[i].getPosition().equals(markers[j].getPosition())) {
-                var lat = markers[i].getPosition().lat() + 0.00001;
-                var lng = markers[i].getPosition().lng() + 0.00001;
-                markers[i].setPosition(new google.maps.LatLng(lat,lng));
+                var lat = markers[i].getPosition().lat() + 0.0001; //0.00035
+                var lng = markers[i].getPosition().lng() + 0.0001;
+                markers[i].setPosition(new google.maps.LatLng(lat, lng));
+                markers[i].setZIndex(1);
+                console.log("changed i = " + i + " same j = " + j);
             }
         }
     }
@@ -101,7 +115,7 @@ function resultLoad() {
 			    }
 			})
 			.autocomplete({
-			    minLength: 0,
+			    minLength: 2,
 			    source: function (request, response) {
 			        // delegate back to autocomplete, but extract the last term
 			        response($.ui.autocomplete.filter(
@@ -135,7 +149,7 @@ function resultLoad() {
     });
 
     $(".result").click(function () {
-        console.log('result clicked');
+        //console.log('result clicked');
         $(".result").removeClass('active');
         $(this).addClass('active');
 
@@ -149,20 +163,31 @@ function resultLoad() {
         //        var $info1 = $;
         var iw = $(this).find('.infowindow1');
 
-        console.log(iw);
-
-        iw.find('rName').html($(this).find('rName'));
+        //console.log(iw);
+        /*
+        var name = $(this).find('rName');
+        iw.find('rName').html(name);
         iw.find('rAddr').html($(this).find('rAddr'));
         iw.find('rPhone').html($(this).find('rPhone'));
         iw.find('rEmail').html($(this).find('rEmail'));
         iw.find('rFax').html($(this).find('rFax'));
         iw.find('rWebsite').html($(this).find('rWebsite'));
         iw.find('rBiz').html($(this).find('rBiz'));
-
-        console.log(iw);
+        */
+        //console.log(iw);
 
         infowindow.setContent(iw.html());
         infowindow.setPosition(pos);
+
+        for (i = 0; i < markers.length; i++)
+            markers[i].setZIndex(1);
+
+        //var i = getMarkerByPos(pos);
+        var index = $(this).find('.rName:first').html().split(".")[0];
+
+        console.log(index);
+
+        markers[index-1].setZIndex(100);
 
         infowindow.open(map);
 
@@ -172,7 +197,7 @@ function resultLoad() {
     });
 
     $(".toolbox").click(function () {
-        console.log("toolbox clicked " + isClosed);
+        //console.log("toolbox clicked " + isClosed);
         var cent = map.getCenter();
         if (!isClosed) {
             $(".sidebar").hide();
@@ -203,6 +228,19 @@ function resultLoad() {
 
 $(document).ready(function () {
     resultLoad();
+    (function () {
+        // remove layerX and layerY
+        var all = $.event.props,
+        len = all.length,
+        res = [];
+        while (len--) {
+            var el = all[len];
+            if (el != 'layerX' && el != 'layerY') res.push(el);
+        }
+        $.event.props = res;
+    } ());
+
+
 });
 
 //google.maps.event.addDomListener(window, 'load', initialize);

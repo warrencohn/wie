@@ -338,7 +338,7 @@ div.accountInfo
 }
 .result.active
 {
-    background: url("/Maps/Skins/RedSkin/images/ff/bg-resultitem-active-top.png") repeat-x 0 top #F4DA60;
+    background: repeat-x 0 top #F4DA60;
 }
 
 .result .rName
@@ -369,7 +369,9 @@ div.accountInfo
 .icontent
 {
     font-style:italic;
-    
+    min-height:120px;
+    min-width:350px;
+
 }
 
 .rLocation
