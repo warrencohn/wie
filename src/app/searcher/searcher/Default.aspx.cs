@@ -29,10 +29,7 @@ namespace searcher
                 lnkLast.Enabled = false;
                 lnkNext.Enabled = false;
                 lnkPrevious.Enabled = false;
-                string sql = "SELECT TOP (100) DuongKhongDau , MAX(RankDC) AS Expr1 " +
-                                " FROM tbl_DiaChi " +
-                                " GROUP BY DuongKhongDau " +
-                                " ORDER BY expr1 DESC";
+                string sql = "SELECT TenKhongDau FROM tbl_ConDuong";
                 DataTable dt = Database.GetData(sql);
                 items = new string[dt.Rows.Count];
                 int i = 0;
@@ -56,9 +53,9 @@ namespace searcher
                 string chitiet = txtsName.Text;
                 string whereclause = "";
                 string whereclause2 = "";
-                string updateRankDC = "";
+                //string updateRankDC = "";
                 whereclause = "WHERE DuongKhongDau LIKE N'%" + txtsName.Text.Trim().Replace(",", "") + "%'";
-                whereclause2 = " OR Ten LIKE N'%" + txtsName.Text.Trim().Replace(",", "") + "%'";
+                whereclause2 = " OR TenKhongDau LIKE N'%" + txtsName.Text.Trim().Replace(",", "") + "%'";
                 if (IsNumber(chitiet[0].ToString()))
                 {
                     diachi = txtsName.Text.Trim().Replace(",", "").Split(new char[] { ' ' }, 2);
@@ -66,9 +63,9 @@ namespace searcher
                         whereclause += " OR (SoNha LIKE '%" + diachi[0] + "%' AND DuongKhongDau LIKE N'%" + diachi[1] + "%')";
                 }
 
-                query = "SELECT * FROM SEARCH_DIACHI_VW " + whereclause + whereclause2;
-                updateRankDC = "UPDATE tbl_DiaChi SET RankDC +=1 " + whereclause;
-                Database.ExecuteNonQuery(updateRankDC);
+                query = "SELECT * FROM vw_CongTy " + whereclause + whereclause2;
+                //updateRankDC = "UPDATE tbl_DiaChi SET RankDC +=1 " + whereclause;
+                //Database.ExecuteNonQuery(updateRankDC);
                 ViewState["query"] = query;
                 //DataTable dt = Database.GetData(query);
                 //dlResult.DataSource = dt;

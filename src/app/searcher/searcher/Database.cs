@@ -21,7 +21,7 @@ namespace searcher
         public static DataTable GetData(String sql, params Object[] parameters)
         {
             return Database.Fill(new DataTable(), sql, parameters);
-        }
+        
         public static DataTable Fill(DataTable table, String sql, params Object[] parameters)
         {
             SqlCommand command = Database.CreateCommand(sql, parameters);
