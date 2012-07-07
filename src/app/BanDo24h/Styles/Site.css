@@ -1,0 +1,452 @@
+﻿/* DEFAULTS
+----------------------------------------------------------*/
+
+body   
+{
+    background: #b6b7bc;
+    font-size: .80em;
+    font-family: "Tahoma", "Helvetica Neue", "Lucida Grande", "Segoe UI", Arial, Helvetica, Verdana, sans-serif;
+    margin: 0px;
+    padding: 0px;
+    color: #696969;
+}
+
+a:link, a:visited
+{
+    color: #034af3;
+}
+
+a:hover
+{
+    color: #1d60ff;
+    text-decoration: none;
+}
+
+a:active
+{
+    color: #034af3;
+}
+
+p
+{
+    margin-bottom: 10px;
+    line-height: 1.6em;
+}
+
+
+/* HEADINGS   
+----------------------------------------------------------*/
+
+h1, h2, h3, h4, h5, h6
+{
+    font-size: 1.5em;
+    color: #666666;
+    font-variant: small-caps;
+    text-transform: none;
+    font-weight: 200;
+    margin-bottom: 0px;
+}
+
+h1
+{
+    font-size: 1.6em;
+    padding-bottom: 0px;
+    margin-bottom: 0px;
+}
+
+h2
+{
+    font-size: 1.5em;
+    font-weight: 600;
+}
+
+h3
+{
+    font-size: 1.2em;
+}
+
+h4
+{
+    font-size: 1.1em;
+}
+
+h5, h6
+{
+    font-size: 1em;
+}
+
+/* this rule styles <h1> and <h2> tags that are the 
+first child of the left and right table columns */
+.rightColumn > h1, .rightColumn > h2, .leftColumn > h1, .leftColumn > h2
+{
+    margin-top: 0px;
+}
+
+
+/* PRIMARY LAYOUT ELEMENTS   
+----------------------------------------------------------*/
+
+.page
+{
+    width: 100%;
+    background-color: #fff;
+    margin: 0px auto 0px auto;
+    /*border: 1px solid #496077;*/
+}
+
+.header
+{
+    position: relative;
+    margin: 0px;
+    padding: 0px;
+    background: #4b6c9e;
+    width: 100%;
+}
+
+.header h1
+{
+    font-weight: 700;
+    margin: 0px;
+    padding: 0px 0px 0px 20px;
+    color: #f9f9f9;
+    border: none;
+    line-height: 2em;
+    font-size: 2em;
+}
+
+.main
+{
+    padding: 0px 12px;
+    margin: 12px 8px 8px 8px;
+    min-height: 420px;
+}
+
+.leftCol
+{
+    padding: 6px 0px;
+    margin: 12px 8px 8px 8px;
+    width: 200px;
+    min-height: 200px;
+}
+
+.footer
+{
+    color: #4e5766;
+    padding: 2px 4px 4px 0px;
+    margin: 0px auto;
+    text-align: right;
+    line-height: normal;
+}
+
+
+/* TAB MENU   
+----------------------------------------------------------*/
+
+div.hideSkiplink
+{
+    background-color:#3a4f63;
+    width:100%;
+}
+
+div.menu
+{
+    padding: 14px 0px 4px 18px;
+    display:inline;
+}
+
+div.menu ul
+{
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+    width: auto;
+}
+
+div.menu ul li a, div.menu ul li a:visited
+{
+    background-color: #465c71;
+    border: 1px #4e667d solid;
+    color: #dde4ec;
+    display: block;
+    line-height: 1.35em;
+    padding: 4px 20px;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+div.menu ul li a:hover
+{
+    background-color: #bfcbd6;
+    color: #465c71;
+    text-decoration: none;
+}
+
+div.menu ul li a:active
+{
+    background-color: #465c71;
+    color: #cfdbe6;
+    text-decoration: none;
+}
+
+/* FORM ELEMENTS   
+----------------------------------------------------------*/
+
+fieldset
+{
+    margin: 1em 0px;
+    padding: 1em;
+    border: 1px solid #ccc;
+}
+
+fieldset p 
+{
+    margin: 2px 12px 10px 10px;
+}
+
+fieldset.login label, fieldset.register label, fieldset.changePassword label
+{
+    display: block;
+}
+
+fieldset label.inline 
+{
+    display: inline;
+}
+
+legend 
+{
+    font-size: 1.1em;
+    font-weight: 600;
+    padding: 2px 4px 8px 4px;
+}
+
+input.textEntry 
+{
+    width: 320px;
+    border: 1px solid #ccc;
+}
+
+input.passwordEntry 
+{
+    width: 320px;
+    border: 1px solid #ccc;
+}
+
+div.accountInfo
+{
+    width: 42%;
+}
+
+/* MISC  
+----------------------------------------------------------*/
+
+.clear
+{
+    clear: both;
+}
+
+.title
+{
+    display: inline;
+    float: left;
+    text-align: left;
+    width: auto;
+    
+}
+
+.loginDisplay
+{
+    font-size: 1.1em;
+    display: inline;
+    
+    margin:0px;
+    text-align:right;
+    float:right;
+    padding-top:2px;
+    padding-right:2px;
+    color: White;
+    margin-right:35px;
+}
+
+.loginDisplay a
+{
+    text-decoration: none;
+}
+
+.loginDisplay a:link
+{
+    color: white;
+}
+
+.loginDisplay a:visited
+{
+    color: white;
+}
+
+
+
+.failureNotification
+{
+    font-size: 1.2em;
+    color: Red;
+}
+
+.bold
+{
+    font-weight: bold;
+}
+
+.submitButton
+{
+    text-align: right;
+    padding-right: 10px;
+}
+
+.sidebar
+{
+    width:370px; 
+  
+}
+.map
+{
+    width:630px;
+    margin-left:10px;
+    height:600px;
+    padding: 0;
+    overflow:hidden;
+}
+.map, .sidebar
+{
+    float:left;    
+}
+.resultBox 
+{
+    height:400px;
+    /*overflow-y:scroll;
+    overflow-x:hidden;*/
+}
+
+.result
+{
+    background: url("images/bg-resultitem-bottom.png") repeat-x 0 bottom #F3F3F3;   
+    padding: 9px 9px 9px 12px;
+    -webkit-box-shadow:1px 0 0 0 rgba(255, 255, 255, 0.15) inset,0 1px 0 0 rgba(255, 255, 255, 0.4) inset,0 -1px 0 0 rgba(255, 255, 255, 0.1) inset,-1px 0 0 0 rgba(255, 255, 255, 0.15) inset;
+    margin-top:2px; 
+    margin-right:2px;
+    position:relative;
+    cursor:pointer;
+}
+.result.active
+{
+    background: repeat-x 0 top #F4DA60;
+}
+
+.result .rName
+{
+    font-size: 12px;
+    font-weight:bold;   
+}
+
+.result .rFax, .result .rEmail, .result .rWebsite, .result .rBiz
+{
+    display:none;    
+}
+.icontent .rName
+{
+    font-weight:bold;
+}
+.icontent .rName, .icontent .rAddr, .icontent .rPhone,
+.icontent .rFax, .icontent .rEmail, .icontent .rWebsite, .icontent .rBiz
+{
+    display:inline;
+    font-style:normal;
+}
+.infowindow1
+{
+    display:none;  
+    font-style:italic;
+}
+.icontent
+{
+    font-style:italic;
+    min-height:130px;
+    min-width:360px;
+
+}
+
+.rLocation
+{
+    display:none;    
+}
+
+.rPhone
+{
+    
+}
+
+.rAddr
+{
+    
+}
+
+.rDetail
+{
+    position:absolute;
+    top:10px;
+    right:10px;
+    width: 19px;
+    height: 19px;
+    display: block;
+    background: url("images/resultdetail.png") no-repeat;
+    cursor:pointer;
+}
+.rDetail:hover
+{
+    background-position: 0 -19px;
+}
+
+.searchBox
+{
+    
+}
+
+.container
+{
+    position:relative;
+    width:100%;
+}
+.toolbox
+{
+    position:absolute;
+    left:390px;
+    bottom:30px;
+    width: 120px;
+    height:20px;
+    background-color:#000;
+    color:#fff;
+    -webkit-opacity:0.9;
+    padding-left:5px;
+    padding-right:5px;
+    padding-top:5px;
+    z-index:999;
+    cursor:pointer;
+    text-align:center;
+}
+.progress
+{
+    z-index:1; 
+    position:absolute;
+    /*left:10%;
+    top:30%;*/
+    left:50%;
+    top:30%;
+    visibility:visible;
+    vertical-align:middle;
+    margin-top: -148px; 
+    margin-left: -134.5px;
+}
+.autocomplete { border:1px solid #a4a4a4; border-top:none; background:#FFF; box-shadow:0 3px 6px #AAA; -moz-box-shadow:0 3px 6px #AAA;-webkit-box-shadow:0 3px 6px #AAA; border-radius:0 0 5px 5px; -moz-border-radius:0 0 5px 5px; -webkit-border-radius:0 0 5px 5px;overflow:auto;}
+.autocomplete > div { padding:6px; border:none; }
+.autocomplete > div + div { border-top:1px solid #EEE; }
+.autocomplete .selected { background:#EDFDFF; }
+.autocomplete strong { color:#009BCF; }
