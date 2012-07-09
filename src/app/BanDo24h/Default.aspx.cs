@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data;
 using System.Data.SqlClient;
+using System.Web.Configuration;
 
 public partial class _Default : System.Web.UI.Page
 {
@@ -13,6 +14,7 @@ public partial class _Default : System.Web.UI.Page
     int findex, lindex;
     string query = "";
     static string[] items;
+    //static string conStr = WebConfigurationManager.ConnectionStrings["BanDo24h"].ConnectionString;
     static string conStr = "Data Source=(local);Initial Catalog=BDSG;Integrated Security=True";
     SqlConnection conn = new SqlConnection(conStr);
     protected void Page_Load(object sender, EventArgs e)
@@ -27,6 +29,10 @@ public partial class _Default : System.Web.UI.Page
             lnkLast.Enabled = false;
             lnkNext.Enabled = false;
             lnkPrevious.Enabled = false;
+            lnkFirst.Visible = false;
+            lnkLast.Visible = false;
+            lnkNext.Visible = false;
+            lnkPrevious.Visible = false;
 
             string sql = "SELECT TenConDuong FROM ConDuong";
             //DataTable dt = Database.GetData(sql);
@@ -59,37 +65,68 @@ public partial class _Default : System.Web.UI.Page
             }
         }
     }
+    //private string filter()
+    //{
+    //    string[] diachi;
+    //    string chitiet = txtsName.Text;
+    //    string whereclause = "";
+    //    //string updateRankDC = "";
+    //    whereclause = "WHERE Duong LIKE N'%" + txtsName.Text.Trim().Replace(",", "") + "%' " +
+    //        " OR Ten LIKE N'%" + txtsName.Text.Trim().Replace(",", "") + "%'";
+    //    //whereclause = "WHERE CONTAINS(Duong,N'" + txtsName.Text.Trim().Replace(",", "") + "') " +
+    //    //    " OR CONTAINS(Ten,N'" + txtsName.Text.Trim().Replace(",", "") + "')";
+    //    if (IsNumber(chitiet[0].ToString()))
+    //    {
+    //        diachi = txtsName.Text.Trim().Replace(",", "").Split(new char[] { ' ' }, 2);
+    //        if (diachi.Length == 2)
+    //            whereclause += " OR (SoNha LIKE '%" + diachi[0] + "%' AND Duong LIKE N'%" + diachi[1] + "%')";
+    //        //whereclause += " OR (CONTAINS(SoNha,'" + diachi[0] + "') AND CONTAINS(Duong,N'%" + diachi[1] + "%'))";
+    //    }
+    //    return whereclause;
+    //}
     private string filter()
     {
-        string[] diachi;
-        string chitiet = txtsName.Text;
-        string whereclause = "";
-        //string updateRankDC = "";
-        whereclause = "WHERE Duong LIKE N'%" + txtsName.Text.Trim().Replace(",", "") + "%' " +
-            " OR Ten LIKE N'%" + txtsName.Text.Trim().Replace(",", "") + "%'";
-        //whereclause = "WHERE CONTAINS(Duong,N'" + txtsName.Text.Trim().Replace(",", "") + "') " +
-        //    " OR CONTAINS(Ten,N'" + txtsName.Text.Trim().Replace(",", "") + "')";
-        if (IsNumber(chitiet[0].ToString()))
+        string[] nhom;
+        string dk = txtsName.Text.Trim();
+        string whereClause = "";
+        if(IsNumber(dk[0].ToString())) 
         {
-            diachi = txtsName.Text.Trim().Replace(",", "").Split(new char[] { ' ' }, 2);
-            if (diachi.Length == 2)
-                whereclause += " OR (SoNha LIKE '%" + diachi[0] + "%' AND Duong LIKE N'%" + diachi[1] + "%')";
-            //whereclause += " OR (CONTAINS(SoNha,'" + diachi[0] + "') AND CONTAINS(Duong,N'%" + diachi[1] + "%'))";
+            if (dk[0].ToString() == "2" || dk[0].ToString() == "3")
+            {
+                if (dk == "3 Tháng 2" || dk == "30 Tháng 4" || dk == "26 Tháng 3")
+                {
+                    whereClause = "Duong = N'" + dk + "' ";
+                    return whereClause;
+                }
+            }
+            nhom = dk.Split(new char[] { ' ' }, 2);
+            if (nhom.Length == 2)
+            {
+                whereClause = "SoNha LIKE '%" + nhom[0] + "%' AND Duong LIKE N'%" + nhom[1] + "%' ";
+            }
+            else if(dk.Length > 5)
+            {
+                whereClause = "SoDienThoai LIKE '%" + dk + "%' ";
+            }
         }
-        return whereclause;
+        else //Tim Cong Ty, Ten duong bat dau bang chu
+        {
+            whereClause = "Ten LIKE N'%" + dk + "%' OR Duong LIKE N'%" + dk + "%' ";
+        }
+        return whereClause;
     }
     protected void btnsSubmit_Click(object sender, EventArgs e)
     {
-        if (txtsName.Text != "")
+        if (txtsName.Text.Length  > 4)
         {
-            query = "SELECT * FROM vw_CongTy " + filter();
+            query = "SELECT * FROM vw_CongTy WHERE " + filter();
             //updateRankDC = "UPDATE tbl_DiaChi SET RankDC +=1 " + whereclause;
             //Database.ExecuteNonQuery(updateRankDC);
             ViewState["query"] = query;
             ViewState["CurrentPage"] = 0;
             BindDataList();
         }
-        else
+        else //alert nothing 
         {
             ViewState["query"] = "";
             dlResult.DataSource = null;
@@ -125,7 +162,11 @@ public partial class _Default : System.Web.UI.Page
             pgsource.PageSize = 10;
             pgsource.CurrentPageIndex = CurrentPage;
             ViewState["totpage"] = pgsource.PageCount;
-            lblpage.Text = "Page " + (CurrentPage + 1) + " of " + pgsource.PageCount;
+            lblpage.Text = "Trang " + (CurrentPage + 1) + " / " + pgsource.PageCount;
+            lnkFirst.Visible = true;
+            lnkLast.Visible = true;
+            lnkNext.Visible = true;
+            lnkPrevious.Visible = true;
             lnkPrevious.Enabled = !pgsource.IsFirstPage;
             lnkNext.Enabled = !pgsource.IsLastPage;
             lnkFirst.Enabled = !pgsource.IsFirstPage;

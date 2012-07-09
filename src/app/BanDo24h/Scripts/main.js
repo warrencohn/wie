@@ -55,10 +55,11 @@ function initialize() {
 function setWindowSize() {
     var w = $(window).width();
     var h = $(window).height();
-    var mw = w - 420;
-    var mainh = h - 100;
+    
+    var mw = w - 437;
+    var mainh = h - 80;
     var mh = mainh - 24;
-    var rh = mh - 40;
+    var rh = mh - 65;
 
     
     $(".map").width(mw + 'px');

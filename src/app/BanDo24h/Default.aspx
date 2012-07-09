@@ -57,9 +57,9 @@
                     </tr>
                     <tr>
                     <td width="80" valign="top" align="center"><asp:LinkButton ID="lnkFirst" 
-                            runat="server" onclick="lnkFirst_Click">First</asp:LinkButton></td>
+                            runat="server" onclick="lnkFirst_Click">Đầu</asp:LinkButton></td>
                     <td width="80" valign="top" align="center"><asp:LinkButton ID="lnkPrevious" 
-                            runat="server" onclick="lnkPrevious_Click">Previous</asp:LinkButton></td>
+                            runat="server" onclick="lnkPrevious_Click">Trước</asp:LinkButton></td>
                     <td>
                             <asp:DataList ID="DataListPaging" runat="server" RepeatDirection="Horizontal" 
                                 onitemcommand="DataListPaging_ItemCommand" 
@@ -70,14 +70,19 @@
                             </asp:DataList> 
                     </td>
                     <td width="80" valign="top" align="center">
-                            <asp:LinkButton ID="lnkNext" runat="server" onclick="lnkNext_Click">Next</asp:LinkButton>
+                            <asp:LinkButton ID="lnkNext" runat="server" onclick="lnkNext_Click">Tiếp</asp:LinkButton>
                     </td>
                     <td width="80" valign="top" align="center">
-                        <asp:LinkButton ID="lnkLast" runat="server" onclick="lnkLast_Click">Last</asp:LinkButton>
+                        <asp:LinkButton ID="lnkLast" runat="server" onclick="lnkLast_Click">Cuối</asp:LinkButton>
                     </td>
                     </tr> 
+                    <tr>
+                    <td></td><td></td>
+                    <td><asp:Label ID="lblpage" runat="server" Text=""></asp:Label></td>
+                    <td></td><td></td>
+                    </tr>
                     </table> 
-                    <asp:Label ID="lblpage" runat="server" Text=""></asp:Label>
+                    
                 </ContentTemplate>
                 <Triggers>
                     <asp:AsyncPostBackTrigger ControlID="btnsSubmit" EventName="Click"/>
@@ -86,7 +91,7 @@
             <asp:UpdateProgress ID="UpdateProgress1" runat="server">
             <ProgressTemplate>
                    <div id="loading" class="progress">   
-                        <img src="Styles/images/processing.gif" />
+                        <img alt="processing..." src="Styles/images/processing.gif" />
                    </div>
                 </ProgressTemplate>
             </asp:UpdateProgress>

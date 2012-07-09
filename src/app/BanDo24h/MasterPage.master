@@ -25,7 +25,7 @@
     <div class="page">
         <div class="header">            
             <div class="clear hideSkiplink">
-                <div class="title"><h1>Location Finder</h1></div>
+                <div class="title"><h1>Bản Đồ 24h</h1></div>
                 <div class="loginDisplay">
                 <!--
                     <asp:LoginView ID="HeadLoginView" runat="server" EnableViewState="false">
@@ -54,14 +54,14 @@
                 </div>
                 <asp:Menu ID="NavigationMenu" runat="server" CssClass="menu" EnableViewState="false" IncludeStyleBlock="false" Orientation="Horizontal">
                     <Items>
-                        <asp:MenuItem NavigateUrl="~/Default.aspx" Text="Home"/>
-                        <asp:MenuItem NavigateUrl="~/About.aspx" Text="About"/>
+                        <asp:MenuItem NavigateUrl="~/Default.aspx" Text="Trang chủ"/>
+                        <%--<asp:MenuItem NavigateUrl="~/About.aspx" Text="About"/>--%>
                     </Items>
                 </asp:Menu>
             </div>
         </div>
         <div class="main">
-            <asp:ContentPlaceHolder ID="MainContent" runat="server"/>
+            <asp:ContentPlaceHolder  ID="MainContent" runat="server"/>
         </div>
         <div class="clear">
         </div>
